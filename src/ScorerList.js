@@ -1,0 +1,124 @@
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import axios from 'axios';
+
+function ScorerList(leaguename) {
+    const [scorer, setScorer] = useState([]);
+
+    const getScorerAPI = async() => { // 득점순위 알 수 있는 API 가져옴
+        try {
+          const scorerName = await axios ({
+            method: 'get',
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json",
+              "X-Auth-Token": leaguename.APIKEY,
+            },
+            url: `/v4/competitions/${leaguename.leaguename}/scorers`,
+            
+          })
+          console.log(scorerName.data.scorers);
+          setScorer(scorerName.data.scorers);
+        }
+        catch(err){
+          alert(err);
+        }
+      };
+
+      useEffect(() => {
+        getScorerAPI();
+      },[leaguename])
+
+    return (
+        <ScList>
+        {Object.keys(scorer).length !== 0 && (
+            <table class="tg">
+                <caption>득점 순위</caption>
+                <thead>
+                <tr>
+                    <th class="tg-c3ow">Rank</th>
+                    <th class="tg-c3ow">Name</th>
+                    <th class="tg-c3ow">Team</th>
+                    <th class="tg-c3ow">Goals</th>
+                    <th class="tg-c3ow">Assist</th>
+                    <th class="tg-c3ow">Penalties</th>
+                </tr>
+                </thead>
+                <tbody>
+                {scorer.map((e) => (
+                <tr class="tr-list">
+                    {scorer.indexOf(e)+1}
+                    <td class="tg-0lax">{e.player.name}</td>
+                    <td class="tg-0lax">
+                    <img src={e.team.crest} width="25px"></img>
+                    &nbsp;{e.team.name}
+                    </td>
+                    <td class="tg-0lax">{e.goals}</td>
+                    <td class="tg-0lax">{e.assists === null ? 0 : e.assists}</td>
+                    <td class="tg-0lax">{e.penalties === null ? 0 : e.penalties}</td>
+                </tr>
+                ))}
+                </tbody>
+            </table>
+        )}
+      </ScList>
+    );
+}
+
+ScorerList.propTypes = {
+    leaguename: PropTypes.object.isRequired,
+}
+
+export default ScorerList;
+
+const ScList = styled.div`
+
+.tg{  
+    border-collapse: collapse;
+    border-color: #ccc;
+    border-spacing: 0;
+  }
+  
+  .tg td{
+    background-color: #fff;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 0px;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+  }
+
+  .tg th{
+    background-color: #f0f0f0;
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 0px;
+    color: #333;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    overflow: hidden;
+    padding: 10px 5px;
+    word-break: normal;
+  }
+
+  .tg .tr-list{
+    text-align: left;
+    vertical-align: top
+  }
+
+  .tg .tg-c3ow{
+    border-color: inherit;
+    text-align: left;
+    vertical-align: top
+  }
+  .tg .tg-0lax{
+    text-align: left;
+    vertical-align: top
+  }
+`
