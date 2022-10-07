@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import axios from 'axios';
+import TeamInformation from "./components/TeamInformation";
 
 function LeagueStandings(leaguename) {
-    const [leagueStandings, setLeagueStandings] = useState([]);
+    const [leagueStandings, setLeagueStandings] = useState([]); //변경된 leaguename에 맞게 각 리그 순위 저장
+    const [teamId, setTeamId] = useState(0);
 
     const getLeagueStandingsAPI = async () => { // 팀 순위를 알 수 있는 API 가져옴
         try {
@@ -15,10 +17,10 @@ function LeagueStandings(leaguename) {
               "Content-Type": "application/json",
               "X-Auth-Token": leaguename.APIKEY,
             },
-            url: `/v4/competitions/${leaguename.leaguename}/standings`,
+            url: `/v4/competitions/${leaguename.leaguename}/standings`, //각 리그에 포함된 팀들 순위를 알 수 있는 API 주소
             
           })
-          console.log(leagueStandings.data.standings[0].table);
+          console.log(leagueStandings.data);
           setLeagueStandings(leagueStandings.data.standings[0].table);
         }
         catch(err){
@@ -26,9 +28,19 @@ function LeagueStandings(leaguename) {
         }
       };
 
-      useEffect(() => {
-        getLeagueStandingsAPI();
-      }, [leaguename]);
+    useEffect(() => {
+      getLeagueStandingsAPI();
+    }, [leaguename.leaguename]);
+
+    const teamClick = (e) => {
+      setTeamId(e.team.id);
+      console.log(e.team.id);
+      return(
+      <TeamInformation
+      teamid={teamId}>
+      </TeamInformation>
+      );
+    };
 
       return (
         <LgStandings>
@@ -52,7 +64,7 @@ function LeagueStandings(leaguename) {
                     {e.position}
                     <td class="tl-0lax">
                     <img src={e.team.crest} width="25px"></img>
-                    &nbsp;{e.team.name}
+                    <span onClick={()=>{teamClick(e)}}>&nbsp;{e.team.name}</span>
                     </td>
                     <td class="tl-0lax">{e.playedGames}</td>
                     <td class="tl-0lax">{e.won}</td>

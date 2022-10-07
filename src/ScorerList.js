@@ -4,7 +4,7 @@ import styled from "styled-components";
 import axios from 'axios';
 
 function ScorerList(leaguename) {
-    const [scorer, setScorer] = useState([]);
+    const [scorer, setScorer] = useState([]); //변경된 leaguename에맞게 득점순위 저장
 
     const getScorerAPI = async() => { // 득점순위 알 수 있는 API 가져옴
         try {
@@ -15,7 +15,7 @@ function ScorerList(leaguename) {
               "Content-Type": "application/json",
               "X-Auth-Token": leaguename.APIKEY,
             },
-            url: `/v4/competitions/${leaguename.leaguename}/scorers`,
+            url: `/v4/competitions/${leaguename.leaguename}/scorers`, //득점순위를 알 수 있는 API 주소
             
           })
           console.log(scorerName.data.scorers);
@@ -28,7 +28,7 @@ function ScorerList(leaguename) {
 
       useEffect(() => {
         getScorerAPI();
-      },[leaguename])
+      },[leaguename.leaguename])
 
     return (
         <ScList>
