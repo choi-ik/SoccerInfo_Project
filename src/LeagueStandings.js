@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import axios from 'axios';
 import TeamInformation from "./components/TeamInformation";
+import {Link} from "react-router-dom";
 
 function LeagueStandings(leaguename) {
     const [leagueStandings, setLeagueStandings] = useState([]); //변경된 leaguename에 맞게 각 리그 순위 저장
@@ -34,12 +35,10 @@ function LeagueStandings(leaguename) {
 
     const teamClick = (e) => {
       setTeamId(e.team.id);
-      console.log(e.team.id);
-      return(
+      //console.log(e.team.id);
       <TeamInformation
       teamid={teamId}>
       </TeamInformation>
-      );
     };
 
       return (
@@ -64,7 +63,7 @@ function LeagueStandings(leaguename) {
                     {e.position}
                     <td class="tl-0lax">
                     <img src={e.team.crest} width="25px"></img>
-                    <span onClick={()=>{teamClick(e)}}>&nbsp;{e.team.name}</span>
+                      <Link to={`/${e.team.id}`}>&nbsp;{e.team.name}</Link>
                     </td>
                     <td class="tl-0lax">{e.playedGames}</td>
                     <td class="tl-0lax">{e.won}</td>
