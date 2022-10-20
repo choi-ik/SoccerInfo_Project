@@ -33,14 +33,6 @@ function LeagueStandings(leaguename) {
       getLeagueStandingsAPI();
     }, [leaguename.leaguename]);
 
-    const teamClick = (e) => {
-      setTeamId(e.team.id);
-      //console.log(e.team.id);
-      <TeamInformation
-      teamid={teamId}>
-      </TeamInformation>
-    };
-
       return (
         <LgStandings>
         {Object.keys(leagueStandings).length !== 0 && (
@@ -80,7 +72,7 @@ function LeagueStandings(leaguename) {
 }
 
 LeagueStandings.propTypes = {
-    leaguename: PropTypes.object.isRequired,
+    leaguename: PropTypes.string.isRequired,
 };
 
 export default LeagueStandings;

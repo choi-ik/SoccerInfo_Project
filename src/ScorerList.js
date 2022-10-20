@@ -67,7 +67,7 @@ function ScorerList(leaguename) {
 }
 
 ScorerList.propTypes = {
-    leaguename: PropTypes.object.isRequired,
+    leaguename: PropTypes.string.isRequired,
 }
 
 export default ScorerList;
