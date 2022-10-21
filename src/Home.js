@@ -3,13 +3,10 @@ import styled from "styled-components";
 import axios from 'axios';
 import ScorerList from "./ScorerList";
 import LeagueStandings from "./LeagueStandings";
-import TeamInfoModal from "./components/TeamInfoModal";
-import Button from 'react-bootstrap/Button'; // 모달
 
 function Home() {
   const [leagueimg, setLeagueimg] = useState([]); //leagueListURL 에서 리그가 포함된 나라 이미지 저장
   const [leaguename, setLeagueName] = useState("PL"); //리그이름 또는 나라 이미지를 클릭했을때 leaguename 값 변경
-  const [modalShow, setModalShow] = useState(false); //모달 코드
 
   const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47"; 
 
@@ -98,15 +95,6 @@ function Home() {
         leaguename={leaguename}
         APIKEY={footballAPIKEY}>
       </ScorerList>
-      
-      <Button variant="primary" onClick={() => setModalShow(true)}>
-        Launch modal with grid
-      </Button>
-
-      <TeamInfoModal 
-      show={modalShow}
-      onHide={() => setModalShow(false)}>
-      </TeamInfoModal>
     
     </CountryImage>
   );
@@ -135,5 +123,4 @@ const CountryImage = styled.div`
     grid-columns: 1/4;
     grid-row: 1/3;
   }
-
 `

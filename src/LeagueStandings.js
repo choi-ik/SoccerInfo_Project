@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import axios from 'axios';
-import TeamInformation from "./components/TeamInformation";
 import {Link} from "react-router-dom";
+import Button from 'react-bootstrap/Button';
+import TeamModal from './components/TeamModal';
 
 function LeagueStandings(leaguename) {
     const [leagueStandings, setLeagueStandings] = useState([]); //변경된 leaguename에 맞게 각 리그 순위 저장
     const [teamId, setTeamId] = useState(0);
+    const [modalShow, setModalShow] = useState(false); //팀정보를 모달에 보여주기 위한 state
 
     const getLeagueStandingsAPI = async () => { // 팀 순위를 알 수 있는 API 가져옴
         try {
@@ -53,9 +55,18 @@ function LeagueStandings(leaguename) {
                 {leagueStandings.map((e) => (
                 <tr class="tl-list">
                     {e.position}
-                    <td class="tl-0lax">
+                    <td class="tl-0lax"
+                        variant="primary"
+                        onClick={() => {
+                          setTeamId(e.team.id);
+                          setModalShow(true);
+                        }}
+                        
+                        // onClick={() => setModalShow(true)}
+                        >
                     <img src={e.team.crest} width="25px"></img>
-                      <Link to={`/${e.team.id}`}>&nbsp;{e.team.name}</Link>
+                      {e.team.name}
+                      {/* <Link to={`/${e.team.id}`}>&nbsp;{e.team.name}</Link> */}
                     </td>
                     <td class="tl-0lax">{e.playedGames}</td>
                     <td class="tl-0lax">{e.won}</td>
@@ -67,6 +78,12 @@ function LeagueStandings(leaguename) {
                 </tbody>
             </table>
         )}
+        <TeamModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          id={teamId}
+        />
+        
         </LgStandings>
       );
 }
