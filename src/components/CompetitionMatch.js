@@ -1,38 +1,37 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-function Match (props) {
-    const [matches, setMatches] = useState([]);
+function CompetitionMatch (props) {
+    const [com_Match, set_Com_Match] = useState();
+    const footballAPIKEY = props.APIKEY;
 
-    const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47";
-
-    const getMatchesAPI = async() => {
+    const get_Competition_Match_API = async() => {
         try {
-            const matchInfo = await axios ({
+            const competition_Match = await axios ({
                 method: 'get',
                 headers: {
                   "Accept": "application/json",
                   "Content-Type": "application/json",
                   "X-Auth-Token": footballAPIKEY,
+                  "X-Unfold-Goals" : true
                 },
-                url: `v4/teams/${props.id}/matches`, //득점순위를 알 수 있는 API 주소
+                url: `v4/competitions/${props.leaguename}/matches`, 
                 
               })
-              console.log(matchInfo.data.matches,"경기일정 정보");
-              setMatches(matchInfo.data.matches);
+              console.log(competition_Match.data.matches,"리그 전체 경기일정 정보");
+              set_Com_Match(competition_Match.data.matches);
         }catch(e) {
             alert(e);
         }
     }
-
     useEffect(() => {
-        getMatchesAPI();
-      }, [props.id]);
+        get_Competition_Match_API();
+    }, [props.leaguename])
 
     return(
-        <MatchList>
-            {Object.keys(matches).length !== 0 && (
+        <ComMatchList>
+            {Object.keys(com_Match).length !== 0 && (
                 <table class="tg">
                     <caption>팀 정보</caption>
                     <thead>
@@ -46,10 +45,10 @@ function Match (props) {
                     </tr>
                     </thead>
                     <tbody>
-                    {matches.map((e) => (
+                    {com_Match.map((e) => (
                     <tr class="tr-list">
                         {e.utcDate.substr(0,10)}
-                        <td class="tg-0lax">{e.competition.name !=='UEFA Champions League' ? e.matchday : "UEFA"}</td>
+                        <td class="tg-0lax">{e.competition.name!=='UEFA Champions League' ? e.matchday : "UEFA"}</td>
                         <td class="tg-0lax">
                           <img src={e.competition.emblem} width="40"></img>{e.competition.name}</td>
                         <td class="tg-0lax">
@@ -65,13 +64,11 @@ function Match (props) {
                     </tbody>
                 </table>
             )}
-        </MatchList>
+        </ComMatchList>
     );
 }
 
-export default Match;
-
-const MatchList = styled.div`
+const ComMatchList = styled.div`
 .tg{  
     border-collapse: collapse;
     border-color: #ccc;
@@ -120,3 +117,5 @@ const MatchList = styled.div`
     vertical-align: top
   }
 `
+
+export default CompetitionMatch;

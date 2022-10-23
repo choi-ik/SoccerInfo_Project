@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from 'axios';
 import ScorerList from "./ScorerList";
 import LeagueStandings from "./LeagueStandings";
+import CompetitionMatch from "./components/CompetitionMatch";
 
 function Home() {
   const [leagueimg, setLeagueimg] = useState([]); //leagueListURL 에서 리그가 포함된 나라 이미지 저장
@@ -95,6 +96,13 @@ function Home() {
         leaguename={leaguename}
         APIKEY={footballAPIKEY}>
       </ScorerList>
+
+      <CompetitionMatch
+        leaguename={leaguename}
+        APIKEY={footballAPIKEY}>
+          
+
+      </CompetitionMatch>
     
     </CountryImage>
   );
@@ -110,17 +118,17 @@ const CountryImage = styled.div`
   grid-gap: 10px;
 
   .box1{
-    grid-columns: 1/4;
+    grid-columns: 1/3;
     grid-row:1;
   }
   
   .box2{
-    grid-columns: 1/4;
+    grid-columns: 1/3;
     grid-row: 1/3;
   }
 
   .box3{
-    grid-columns: 1/4;
+    grid-columns: 1/3;
     grid-row: 1/3;
   }
 `
