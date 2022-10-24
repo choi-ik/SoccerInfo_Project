@@ -41,7 +41,7 @@ function TeamModal (props) {
     return (
         <Modal
           {...props}
-          size="lg"
+          size="xl"
           aria-labelledby="contained-modal-title-vcenter"
           centered
           fullscreen ="lg-down"
@@ -50,7 +50,7 @@ function TeamModal (props) {
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">
             <img src={teamImg} width="40"></img>
-              {teamName}
+              &nbsp;{teamName}
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -59,7 +59,7 @@ function TeamModal (props) {
                 <TeamList className="box1">
                     {Object.keys(teamInfo).length !== 0 && (
                         <table class="tg">
-                            <caption>팀 정보</caption>
+                            <caption className="cap">스쿼드</caption>
                             <thead>
                             <tr>
                                 <th class="tg-c3ow">List</th>
@@ -97,9 +97,8 @@ export default TeamModal;
 
 const TmModal = styled.div`
   display: grid;
-  grid-template-columns: 200px 1fr 1fr;
-  grid-template-rows: 250px 1fr 1fr;
-  grid-gap: 10px;
+  grid-template-columns: 1fr 3fr;
+  grid-gap: 40px;
 
   .box1{
     grid-columns: 1/3;
@@ -114,6 +113,10 @@ const TmModal = styled.div`
 `
 
 const TeamList = styled.div`
+.cap{
+  caption-side: top;
+  text-align: center;
+}
 .tg{  
     border-collapse: collapse;
     border-color: #ccc;
@@ -148,17 +151,17 @@ const TeamList = styled.div`
   }
 
   .tg .tr-list{
-    text-align: left;
+    text-align: center;
     vertical-align: top
   }
 
   .tg .tg-c3ow{
     border-color: inherit;
-    text-align: left;
+    text-align: center;
     vertical-align: top
   }
   .tg .tg-0lax{
-    text-align: left;
+    text-align: center;
     vertical-align: top
   }
 `

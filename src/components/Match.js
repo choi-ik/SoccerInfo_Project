@@ -33,11 +33,11 @@ function Match (props) {
     return(
         <MatchList>
             {Object.keys(matches).length !== 0 && (
-                <table class="tg">
-                    <caption>팀 정보</caption>
+                <table class="tg" witdh="100%">
+                    <caption className="cap">팀 일정</caption>
                     <thead>
                     <tr>
-                        <th class="tg-c3ow">Date</th>
+                        <th class="tg-c3ow" width="100px">Date</th>
                         <th class="tg-c3ow">Round</th>
                         <th class="tg-c3ow">League</th>
                         <th class="tg-c3ow">Home</th>
@@ -51,15 +51,15 @@ function Match (props) {
                         {e.utcDate.substr(0,10)}
                         <td class="tg-0lax">{e.competition.name !=='UEFA Champions League' ? e.matchday : "UEFA"}</td>
                         <td class="tg-0lax">
-                          <img src={e.competition.emblem} width="40"></img>{e.competition.name}</td>
+                          <img src={e.competition.emblem} width="40"></img>&nbsp;{e.competition.name}</td>
                         <td class="tg-0lax">
-                          <img src={e.homeTeam.crest} width="25"></img>{e.homeTeam.name}</td>
+                          <img src={e.homeTeam.crest} width="25"></img>&nbsp;{e.homeTeam.name}</td>
                         <td class="tg-0lax">{e.score.fullTime.home !== null ? e.score.fullTime.home : "-"}
                                             {" : "}
                                             {e.score.fullTime.away !== null ? e.score.fullTime.away : "-"}
                         </td>
                         <td class="tg-0lax">
-                        <img src={e.awayTeam.crest} width="25"></img>{e.awayTeam.name}</td>
+                        <img src={e.awayTeam.crest} width="25"></img>&nbsp;{e.awayTeam.name}</td>
                     </tr>
                     ))}
                     </tbody>
@@ -72,6 +72,11 @@ function Match (props) {
 export default Match;
 
 const MatchList = styled.div`
+.cap{
+  caption-side: top;
+  text-align: center;
+}
+
 .tg{  
     border-collapse: collapse;
     border-color: #ccc;
@@ -106,17 +111,17 @@ const MatchList = styled.div`
   }
 
   .tg .tr-list{
-    text-align: left;
-    vertical-align: top
+    text-align: center;
+    vertical-align: top;
   }
 
   .tg .tg-c3ow{
     border-color: inherit;
-    text-align: left;
+    text-align: center;
     vertical-align: top
   }
   .tg .tg-0lax{
-    text-align: left;
+    text-align: center;
     vertical-align: top
   }
 `

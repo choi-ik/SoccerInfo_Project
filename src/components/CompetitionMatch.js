@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 function CompetitionMatch (props) {
-    const [com_Match, set_Com_Match] = useState();
+    const [com_Match, set_Com_Match] = useState([]);
     const footballAPIKEY = props.APIKEY;
 
     const get_Competition_Match_API = async() => {
@@ -28,11 +28,11 @@ function CompetitionMatch (props) {
     useEffect(() => {
         get_Competition_Match_API();
     }, [props.leaguename])
-
+    console.log(com_Match,"확인차 보는 API");
     return(
-        <ComMatchList>
+        <ComMatch>
             {Object.keys(com_Match).length !== 0 && (
-                <table class="tg">
+                <table class="tg" width="100%">
                     <caption>팀 정보</caption>
                     <thead>
                     <tr>
@@ -50,25 +50,29 @@ function CompetitionMatch (props) {
                         {e.utcDate.substr(0,10)}
                         <td class="tg-0lax">{e.competition.name!=='UEFA Champions League' ? e.matchday : "UEFA"}</td>
                         <td class="tg-0lax">
-                          <img src={e.competition.emblem} width="40"></img>{e.competition.name}</td>
+                          <img src={e.competition.emblem} width="40"></img>&nbsp;{e.competition.name}</td>
                         <td class="tg-0lax">
-                          <img src={e.homeTeam.crest} width="25"></img>{e.homeTeam.name}</td>
+                          <img src={e.homeTeam.crest} width="25"></img>&nbsp;{e.homeTeam.name}</td>
                         <td class="tg-0lax">{e.score.fullTime.home !== null ? e.score.fullTime.home : "-"}
                                             {" : "}
                                             {e.score.fullTime.away !== null ? e.score.fullTime.away : "-"}
                         </td>
                         <td class="tg-0lax">
-                        <img src={e.awayTeam.crest} width="25"></img>{e.awayTeam.name}</td>
+                        <img src={e.awayTeam.crest} width="25"></img>&nbsp;{e.awayTeam.name}</td>
                     </tr>
                     ))}
                     </tbody>
                 </table>
             )}
-        </ComMatchList>
+        </ComMatch>
     );
 }
+export default CompetitionMatch;
 
-const ComMatchList = styled.div`
+const ComMatch = styled.div`
+  grid-column-start: 1;
+  grid-column-end: 4;
+  
 .tg{  
     border-collapse: collapse;
     border-color: #ccc;
@@ -103,19 +107,17 @@ const ComMatchList = styled.div`
   }
 
   .tg .tr-list{
-    text-align: left;
+    text-align: center;
     vertical-align: top
   }
 
   .tg .tg-c3ow{
     border-color: inherit;
-    text-align: left;
+    text-align: center;
     vertical-align: top
   }
   .tg .tg-0lax{
-    text-align: left;
+    text-align: center;
     vertical-align: top
   }
 `
-
-export default CompetitionMatch;

@@ -38,7 +38,7 @@ function LeagueStandings(leaguename) {
       return (
         <LgStandings>
         {Object.keys(leagueStandings).length !== 0 && (
-            <table class="tl">
+            <table class="tl" width="100%">
                 <caption>팀 순위</caption>
                 <thead>
                 <tr>
@@ -65,7 +65,7 @@ function LeagueStandings(leaguename) {
                         // onClick={() => setModalShow(true)}
                         >
                     <img src={e.team.crest} width="25px"></img>
-                      {e.team.name}
+                    &nbsp;{e.team.name}
                       {/* <Link to={`/${e.team.id}`}>&nbsp;{e.team.name}</Link> */}
                     </td>
                     <td class="tl-0lax">{e.playedGames}</td>

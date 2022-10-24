@@ -33,7 +33,7 @@ function ScorerList(leaguename) {
     return (
         <ScList>
         {Object.keys(scorer).length !== 0 && (
-            <table class="tg">
+            <table class="tg" width="100%">
                 <caption>득점 순위</caption>
                 <thead>
                 <tr>

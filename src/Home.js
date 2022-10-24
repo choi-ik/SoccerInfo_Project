@@ -1,6 +1,10 @@
 import { useEffect, useState} from "react";
 import styled from "styled-components";
 import axios from 'axios';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 import ScorerList from "./ScorerList";
 import LeagueStandings from "./LeagueStandings";
 import CompetitionMatch from "./components/CompetitionMatch";
@@ -62,27 +66,33 @@ function Home() {
 
   return (
     <CountryImage>
+      <Navbar className="Navbar" bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="#home">SccoerInfo</Navbar.Brand>
+        </Container>
+      </Navbar>
       {Object.keys(leagueimg).length !== 0 && (
+        
           <div className="box1">
-            <div onClick={scorerClick_PL}>
-              <img  src={leagueimg[71].flag} width="40px" />
-              &nbsp;프리미어리그
+            <div>
+            <Button variant="outline-dark" onClick={scorerClick_PL}><img src={leagueimg[71].flag} width="40px" />
+              &nbsp;프리미어리그</Button>
             </div>
-            <div onClick={scorerClick_PD}>
-              <img  src={leagueimg[223].flag} width="40px" />
-              &nbsp;라 리가
+            <div>
+            <Button variant="outline-dark" onClick={scorerClick_PD}><img  src={leagueimg[223].flag} width="40px" />
+              &nbsp;라 리가</Button>
             </div>
-            <div onClick={scorerClick_SA}>
-              <img  src={leagueimg[113].flag} width="40px" />
-              &nbsp;세리에 A
+            <div>
+            <Button variant="outline-dark" onClick={scorerClick_SA}><img  src={leagueimg[113].flag} width="40px" />
+              &nbsp;세리에 A</Button>
             </div>
-            <div onClick={scorerClick_BL}>
-              <img  src={leagueimg[87].flag} width="40px" />
-              &nbsp;분데스리가
+            <div>
+            <Button variant="outline-dark" onClick={scorerClick_BL}><img  src={leagueimg[87].flag} width="40px" />
+              &nbsp;분데스리가</Button>
             </div>
-            <div onClick={scorerClick_LEAGUE}>
-              <img  src={leagueimg[80].flag} width="40px" />
-              &nbsp;리그 1
+            <div>
+            <Button variant="outline-dark" onClick={scorerClick_LEAGUE}><img  src={leagueimg[80].flag} width="40px" />
+              &nbsp;리그 1</Button>
             </div>
         </div>
       )}
@@ -97,7 +107,7 @@ function Home() {
         APIKEY={footballAPIKEY}>
       </ScorerList>
 
-      <CompetitionMatch
+      <CompetitionMatch className="box4"
         leaguename={leaguename}
         APIKEY={footballAPIKEY}>
           
@@ -105,7 +115,7 @@ function Home() {
       </CompetitionMatch>
     
     </CountryImage>
-  );
+  ); 
 }
 
 export default Home;
@@ -113,22 +123,12 @@ export default Home;
 
 const CountryImage = styled.div`
   display: grid;
-  grid-template-columns: 200px 1fr 1fr;
-  grid-template-rows: 250px 1fr 1fr;
-  grid-gap: 10px;
+  grid-template-columns: 1fr 2fr 2fr;
+  grid-auto-rows: minmax(10px, auto);
+  grid-gap: 20px;
 
-  .box1{
-    grid-columns: 1/3;
-    grid-row:1;
-  }
-  
-  .box2{
-    grid-columns: 1/3;
-    grid-row: 1/3;
-  }
-
-  .box3{
-    grid-columns: 1/3;
-    grid-row: 1/3;
+  .Navbar {
+    grid-column-start: 1;
+    grid-column-end: 4;
   }
 `
