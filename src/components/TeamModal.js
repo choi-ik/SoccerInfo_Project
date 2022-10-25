@@ -6,9 +6,9 @@ import styled from "styled-components";
 import Match from "./Match"
 
 function TeamModal (props) {
-    const [teamInfo, setTeamInfo] = useState([]);
-    const [teamName, setTeamName] = useState("");
-    const [teamImg, setTeamImg] = useState("");
+    const [teamInfo, setTeamInfo] = useState([]); //팀의 선수구성 정보 State
+    const [teamName, setTeamName] = useState(""); //모달 상단에 팀이름 보여주기 위한 state
+    const [teamImg, setTeamImg] = useState(""); //모달 상단에 팀 엠블럼 보여주기 위한 state
     const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47";
 
         const getTeaminfoAPI = async() => {
@@ -20,22 +20,21 @@ function TeamModal (props) {
                       "Content-Type": "application/json",
                       "X-Auth-Token": footballAPIKEY,
                     },
-                    url: `v4/teams/${props.id}`, //득점순위를 알 수 있는 API 주소
+                    url: `v4/teams/${props.id}`, //팀 선수 구성 API
                     
                   })
     
-                  console.log(Teaminfo.data.squad);
-                  //console.log(Teaminfo.data,"팀 이름을 알기 위함");
-                  setTeamInfo(Teaminfo.data.squad);
-                  setTeamName(Teaminfo.data.name);
-                  setTeamImg(Teaminfo.data.crest);
+                  console.log(Teaminfo.data.squad,"모달 팀 구성정보 API");
+                  setTeamInfo(Teaminfo.data.squad); //팀 선수구성
+                  setTeamName(Teaminfo.data.name); //모달 상단 팀이름
+                  setTeamImg(Teaminfo.data.crest); //모달 상단 팀 엠블럼
             }catch(e) {
                 alert(e);
             }
         }
 
     useEffect(() => {
-        if(props.id !== 0) getTeaminfoAPI();
+        if(props.id !== 0) getTeaminfoAPI(); //Default로 팀 id를 0 으로 보내주는데 0이 아닐때 API가져와서 보여줌
     }, [props.id])
 
     return (
@@ -81,7 +80,8 @@ function TeamModal (props) {
                 </TeamList>
                 <Match 
                     className="box2"
-                    id={props.id}>
+                    id={props.id}
+                    >
                 </Match>
             </TmModal>
        

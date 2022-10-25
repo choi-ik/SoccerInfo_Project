@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 function Match (props) {
-    const [matches, setMatches] = useState([]);
+    const [matches, setMatches] = useState([]); // 팀의 경기일정 저장 State
 
     const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47";
 
@@ -16,10 +16,10 @@ function Match (props) {
                   "Content-Type": "application/json",
                   "X-Auth-Token": footballAPIKEY,
                 },
-                url: `v4/teams/${props.id}/matches`, //득점순위를 알 수 있는 API 주소
+                url: `v4/teams/${props.id}/matches`, // 내가 보고싶은 팀의 경기 일정 API
                 
               })
-              console.log(matchInfo.data.matches,"경기일정 정보");
+              console.log(matchInfo.data.matches,"모달 경기일정 정보");
               setMatches(matchInfo.data.matches);
         }catch(e) {
             alert(e);
@@ -28,7 +28,7 @@ function Match (props) {
 
     useEffect(() => {
         getMatchesAPI();
-      }, [props.id]);
+      }, []);
 
     return(
         <MatchList>

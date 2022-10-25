@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 function CompetitionMatch (props) {
-    const [com_Match, set_Com_Match] = useState([]);
+    const [com_Match, set_Com_Match] = useState([]); //리그 전체 경기 일정 저장 State
     const footballAPIKEY = props.APIKEY;
 
     const get_Competition_Match_API = async() => {
@@ -16,7 +16,7 @@ function CompetitionMatch (props) {
                   "X-Auth-Token": footballAPIKEY,
                   "X-Unfold-Goals" : true
                 },
-                url: `v4/competitions/${props.leaguename}/matches`, 
+                url: `v4/competitions/${props.leaguename}/matches?season=${props.season}`,  //리그 전체 경기 일정 API
                 
               })
               console.log(competition_Match.data.matches,"리그 전체 경기일정 정보");
@@ -27,13 +27,12 @@ function CompetitionMatch (props) {
     }
     useEffect(() => {
         get_Competition_Match_API();
-    }, [props.leaguename])
-    console.log(com_Match,"확인차 보는 API");
+    }, [props.leaguename, props.season])
     return(
         <ComMatch>
             {Object.keys(com_Match).length !== 0 && (
                 <table class="tg" width="100%">
-                    <caption>팀 정보</caption>
+                    <caption className="cap">리그 경기 일정</caption>
                     <thead>
                     <tr>
                         <th class="tg-c3ow">Date</th>
@@ -73,6 +72,10 @@ const ComMatch = styled.div`
   grid-column-start: 1;
   grid-column-end: 4;
   
+  .cap{
+    caption-side: top;
+    text-align: center;
+  }
 .tg{  
     border-collapse: collapse;
     border-color: #ccc;

@@ -8,10 +8,13 @@ import Button from 'react-bootstrap/Button';
 import ScorerList from "./ScorerList";
 import LeagueStandings from "./LeagueStandings";
 import CompetitionMatch from "./components/CompetitionMatch";
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 function Home() {
   const [leagueimg, setLeagueimg] = useState([]); //leagueListURL 에서 리그가 포함된 나라 이미지 저장
   const [leaguename, setLeagueName] = useState("PL"); //리그이름 또는 나라 이미지를 클릭했을때 leaguename 값 변경
+  const [season, setSeason] = useState(2022);
 
   const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47"; 
 
@@ -31,7 +34,7 @@ function Home() {
             
           })
 
-          console.log(country.data.areas);
+          console.log(country.data.areas,"나라 정보 API");
           setLeagueimg(country.data.areas);
           
         }
@@ -42,7 +45,7 @@ function Home() {
   
     useEffect(() => { 
       getCountryApi();
-    }, []);
+    }, [leaguename]);
 
     const scorerClick_PL = () => { //영국 프리미어리그를 클릭하면 PL로 setLeagueName에 값을 넣어줌
         setLeagueName("PL");
@@ -64,11 +67,23 @@ function Home() {
       setLeagueName("LEAGUE");
   };
 
+  
+  const seasonBtn = () => {  //드롭다운 함수
+    let seasonList = [];
+    for(let i=2022; i>=2000; i--){
+      seasonList.push(<Dropdown.Item onClick={() => setSeason(i)}>{i}</Dropdown.Item>);
+    }
+    return seasonList;
+  }
+
   return (
     <CountryImage>
       <Navbar className="Navbar" bg="dark" variant="dark">
         <Container>
           <Navbar.Brand href="#home">SccoerInfo</Navbar.Brand>
+          <DropdownButton className="Dropdown" id="dropdown-basic-button" title={season}>
+            {seasonBtn()}
+          </DropdownButton>
         </Container>
       </Navbar>
       {Object.keys(leagueimg).length !== 0 && (
@@ -99,17 +114,20 @@ function Home() {
 
       <LeagueStandings className="box2"
         leaguename={leaguename}
-        APIKEY={footballAPIKEY}>
+        APIKEY={footballAPIKEY}
+        season={season}>
       </LeagueStandings>
       
       <ScorerList className="box3"
         leaguename={leaguename}
-        APIKEY={footballAPIKEY}>
+        APIKEY={footballAPIKEY}
+        season={season}>
       </ScorerList>
 
       <CompetitionMatch className="box4"
         leaguename={leaguename}
-        APIKEY={footballAPIKEY}>
+        APIKEY={footballAPIKEY}
+        season={season}>
           
 
       </CompetitionMatch>

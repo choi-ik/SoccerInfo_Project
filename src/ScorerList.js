@@ -15,10 +15,10 @@ function ScorerList(leaguename) {
               "Content-Type": "application/json",
               "X-Auth-Token": leaguename.APIKEY,
             },
-            url: `/v4/competitions/${leaguename.leaguename}/scorers`, //득점순위를 알 수 있는 API 주소
+            url: `/v4/competitions/${leaguename.leaguename}/scorers?season=${leaguename.season}`, //득점순위를 알 수 있는 API 주소
             
           })
-          console.log(scorerName.data.scorers);
+          console.log(scorerName.data.scorers,"리그 내 득점 순위 API");
           setScorer(scorerName.data.scorers);
         }
         catch(err){
@@ -28,13 +28,13 @@ function ScorerList(leaguename) {
 
       useEffect(() => {
         getScorerAPI();
-      },[leaguename.leaguename])
+      },[leaguename.leaguename, leaguename.season])
 
     return (
         <ScList>
         {Object.keys(scorer).length !== 0 && (
             <table class="tg" width="100%">
-                <caption>득점 순위</caption>
+                <caption className="cap">득점 순위</caption>
                 <thead>
                 <tr>
                     <th class="tg-c3ow">Rank</th>
@@ -73,6 +73,10 @@ ScorerList.propTypes = {
 export default ScorerList;
 
 const ScList = styled.div`
+.cap{
+  caption-side: top;
+  text-align: center;
+}
 
 .tg{  
     border-collapse: collapse;

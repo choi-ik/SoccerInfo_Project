@@ -23,7 +23,7 @@ function TeamInformation() {
                 
               })
 
-              console.log(Teaminfo.data.squad);
+              console.log(Teaminfo.data.squad,"없앤다");
               setTeamInfo(Teaminfo.data.squad);
         }catch(e) {
             alert(e);

@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import axios from 'axios';
 import {Link} from "react-router-dom";
-import Button from 'react-bootstrap/Button';
 import TeamModal from './components/TeamModal';
+
 
 function LeagueStandings(leaguename) {
     const [leagueStandings, setLeagueStandings] = useState([]); //변경된 leaguename에 맞게 각 리그 순위 저장
-    const [teamId, setTeamId] = useState(0);
+    const [teamId, setTeamId] = useState(0); //모달에게 넘겨주기 위한 팀 id
     const [modalShow, setModalShow] = useState(false); //팀정보를 모달에 보여주기 위한 state
 
     const getLeagueStandingsAPI = async () => { // 팀 순위를 알 수 있는 API 가져옴
@@ -20,10 +20,10 @@ function LeagueStandings(leaguename) {
               "Content-Type": "application/json",
               "X-Auth-Token": leaguename.APIKEY,
             },
-            url: `/v4/competitions/${leaguename.leaguename}/standings`, //각 리그에 포함된 팀들 순위를 알 수 있는 API 주소
+            url: `/v4/competitions/${leaguename.leaguename}/standings?season=${leaguename.season}`, //각 리그에 포함된 팀들 순위를 알 수 있는 API 주소
             
           })
-          console.log(leagueStandings.data);
+          console.log(leagueStandings.data,"리그 내 팀 순위 API");
           setLeagueStandings(leagueStandings.data.standings[0].table);
         }
         catch(err){
@@ -33,13 +33,13 @@ function LeagueStandings(leaguename) {
 
     useEffect(() => {
       getLeagueStandingsAPI();
-    }, [leaguename.leaguename]);
+    }, [leaguename.leaguename, leaguename.season]);
 
       return (
         <LgStandings>
         {Object.keys(leagueStandings).length !== 0 && (
             <table class="tl" width="100%">
-                <caption>팀 순위</caption>
+                <caption className="cap">팀 순위</caption>
                 <thead>
                 <tr>
                     <th class="tl-c3ow">Rank</th>
@@ -95,6 +95,14 @@ LeagueStandings.propTypes = {
 export default LeagueStandings;
 
 const LgStandings = styled.div`
+.cap{
+  caption-side: top;
+  text-align: center;
+}
+
+.Dropdown{
+
+}
 
 .tl{  
     border-collapse: collapse;
