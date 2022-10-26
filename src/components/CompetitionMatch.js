@@ -3,7 +3,8 @@ import axios from "axios";
 import styled from "styled-components";
 
 function CompetitionMatch (props) {
-    const [com_Match, set_Com_Match] = useState([]); //리그 전체 경기 일정 저장 State
+    const [com_Match, set_Com_Match] = useState([]); //리그 전체 최근 지난 경기 일정 저장 State
+    const [futureMatch, setFutureMatch] = useState([]); //리그 전체 진행되지 않은 경기 일정 State
     const footballAPIKEY = props.APIKEY;
 
     const get_Competition_Match_API = async() => {
@@ -20,9 +21,15 @@ function CompetitionMatch (props) {
                 
               })
               console.log(competition_Match.data.matches,"리그 전체 경기일정 정보");
+              setFutureMatch(competition_Match.data.matches);//진행되지 않은 리그 경기 Set
+
+              competition_Match.data.matches.sort(function(a,b) { //최근경기 가장 까가운 날짜로 보이게 내림차순 하기 위함.
+                return parseFloat(Date.parse(b.utcDate)) - parseFloat(Date.parse(a.utcDate));
+              });
               set_Com_Match(competition_Match.data.matches);
+              
         }catch(e) {
-            alert(e);
+          alert(e);
         }
     }
     useEffect(() => {
@@ -43,10 +50,11 @@ function CompetitionMatch (props) {
                         <th class="tg-c3ow">Away</th>
                     </tr>
                     </thead>
-                    <tbody>
                     {com_Match.map((e) => (
+                      e.score.winner !== null ? 
+                    <tbody>
                     <tr class="tr-list">
-                        {e.utcDate.substr(0,10)}
+                        { e.utcDate.substr(0,10)}
                         <td class="tg-0lax">{e.competition.name!=='UEFA Champions League' ? e.matchday : "UEFA"}</td>
                         <td class="tg-0lax">
                           <img src={e.competition.emblem} width="40"></img>&nbsp;{e.competition.name}</td>
@@ -59,11 +67,13 @@ function CompetitionMatch (props) {
                         <td class="tg-0lax">
                         <img src={e.awayTeam.crest} width="25"></img>&nbsp;{e.awayTeam.name}</td>
                     </tr>
-                    ))}
                     </tbody>
+                    : false
+                    ))}
                 </table>
             )}
         </ComMatch>
+        
     );
 }
 export default CompetitionMatch;

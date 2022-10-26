@@ -90,23 +90,23 @@ function Home() {
         
           <div className="box1">
             <div>
-            <Button variant="outline-dark" onClick={scorerClick_PL}><img src={leagueimg[71].flag} width="40px" />
+            <Button className="bt1" variant="outline-dark" onClick={scorerClick_PL}><img src={leagueimg[71].flag} width="40px" />
               &nbsp;프리미어리그</Button>
             </div>
             <div>
-            <Button variant="outline-dark" onClick={scorerClick_PD}><img  src={leagueimg[223].flag} width="40px" />
+            <Button className="bt1" variant="outline-dark" onClick={scorerClick_PD}><img  src={leagueimg[223].flag} width="40px" />
               &nbsp;라 리가</Button>
             </div>
             <div>
-            <Button variant="outline-dark" onClick={scorerClick_SA}><img  src={leagueimg[113].flag} width="40px" />
+            <Button className="bt1" variant="outline-dark" onClick={scorerClick_SA}><img  src={leagueimg[113].flag} width="40px" />
               &nbsp;세리에 A</Button>
             </div>
             <div>
-            <Button variant="outline-dark" onClick={scorerClick_BL}><img  src={leagueimg[87].flag} width="40px" />
+            <Button className="bt1" variant="outline-dark" onClick={scorerClick_BL}><img  src={leagueimg[87].flag} width="40px" />
               &nbsp;분데스리가</Button>
             </div>
             <div>
-            <Button variant="outline-dark" onClick={scorerClick_LEAGUE}><img  src={leagueimg[80].flag} width="40px" />
+            <Button className="bt1" variant="outline-dark" onClick={scorerClick_LEAGUE}><img  src={leagueimg[80].flag} width="40px" />
               &nbsp;리그 1</Button>
             </div>
         </div>
@@ -128,8 +128,6 @@ function Home() {
         leaguename={leaguename}
         APIKEY={footballAPIKEY}
         season={season}>
-          
-
       </CompetitionMatch>
     
     </CountryImage>
@@ -145,6 +143,10 @@ const CountryImage = styled.div`
   grid-auto-rows: minmax(10px, auto);
   grid-gap: 20px;
 
+  .bt1{
+    width: 100%;
+    text-align: left;
+  }
   .Navbar {
     grid-column-start: 1;
     grid-column-end: 4;
