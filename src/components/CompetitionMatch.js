@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import Pagination from "./Pagination";
 
 function CompetitionMatch (props) {
     const [com_Match, set_Com_Match] = useState([]); //리그 전체 최근 지난 경기 일정 저장 State
     const [futureMatch, setFutureMatch] = useState([]); //리그 전체 진행되지 않은 경기 일정 State
+
+    const [page,setPage] = useState(1);
+    const [limit, setLimit] = useState(20);
+    const offset = (page -1) * limit;
+
     const footballAPIKEY = props.APIKEY;
 
+    let competitionList = [];
     const get_Competition_Match_API = async() => {
         try {
             const competition_Match = await axios ({
@@ -26,7 +33,13 @@ function CompetitionMatch (props) {
               competition_Match.data.matches.sort(function(a,b) { //최근경기 가장 까가운 날짜로 보이게 내림차순 하기 위함.
                 return parseFloat(Date.parse(b.utcDate)) - parseFloat(Date.parse(a.utcDate));
               });
-              set_Com_Match(competition_Match.data.matches);
+
+              competition_Match.data.matches.map((e, i) => { //진행되지 않은 경기는 보이지 않게 하기 위함.
+                if(e.score.winner !== null) competitionList.push(competition_Match.data.matches[i]);
+              });
+
+              console.log(competitionList,"배열에 잘 들어갔나 확인");
+              set_Com_Match(competitionList); //최근 진행된 경기만 set해줌.
               
         }catch(e) {
           alert(e);
@@ -50,8 +63,7 @@ function CompetitionMatch (props) {
                         <th class="tg-c3ow">Away</th>
                     </tr>
                     </thead>
-                    {com_Match.map((e) => (
-                      e.score.winner !== null ? 
+                    {com_Match.slice(offset, offset + limit).map((e) => (
                     <tbody>
                     <tr class="tr-list">
                         { e.utcDate.substr(0,10)}
@@ -68,10 +80,17 @@ function CompetitionMatch (props) {
                         <img src={e.awayTeam.crest} width="25"></img>&nbsp;{e.awayTeam.name}</td>
                     </tr>
                     </tbody>
-                    : false
                     ))}
                 </table>
             )}
+            <footer>
+              <Pagination
+                total={com_Match.length}
+                limit={limit}
+                page={page}
+                setPage={setPage}
+                />
+            </footer>
         </ComMatch>
         
     );
@@ -81,7 +100,7 @@ export default CompetitionMatch;
 const ComMatch = styled.div`
   grid-column-start: 1;
   grid-column-end: 4;
-  
+    
   .cap{
     caption-side: top;
     text-align: center;

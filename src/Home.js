@@ -64,7 +64,7 @@ function Home() {
     };
 
     const scorerClick_LEAGUE = () => {
-      setLeagueName("LEAGUE");
+      setLeagueName("FL1");
   };
 
   
@@ -142,6 +142,10 @@ const CountryImage = styled.div`
   grid-template-columns: 1fr 2fr 2fr;
   grid-auto-rows: minmax(10px, auto);
   grid-gap: 20px;
+
+  .box1{
+    margin-top: 40px;
+  }
 
   .bt1{
     width: 100%;
