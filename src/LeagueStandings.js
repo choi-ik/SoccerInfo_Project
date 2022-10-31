@@ -54,8 +54,8 @@ function LeagueStandings(leaguename) {
                 <tbody>
                 {leagueStandings.map((e) => (
                 <tr class="tl-list">
-                    {e.position}
-                    <td class="tl-0lax"
+                    <td class="tl-0lax">{e.position}</td>
+                    <td class="tl-0laz"
                         variant="primary"
                         onClick={() => {
                           setTeamId(e.team.id);
@@ -100,10 +100,6 @@ const LgStandings = styled.div`
   text-align: center;
 }
 
-.Dropdown{
-
-}
-
 .tl{  
     border-collapse: collapse;
     border-color: #ccc;
@@ -139,7 +135,7 @@ const LgStandings = styled.div`
 
   .tl .tl-list{
     text-align: left;
-    vertical-align: top
+    vertical-align: top;
   }
 
   .tl .tl-c3ow{
@@ -149,6 +145,12 @@ const LgStandings = styled.div`
   }
   .tl .tl-0lax{
     text-align: left;
-    vertical-align: top
+    vertical-align: top;
+  }
+
+  .tl .tl-0laz{
+    text-align: left;
+    vertical-align: top;
+    cursor : pointer;
   }
 `

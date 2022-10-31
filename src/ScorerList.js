@@ -48,7 +48,7 @@ function ScorerList(leaguename) {
                 <tbody>
                 {scorer.map((e) => (
                 <tr class="tr-list">
-                    {scorer.indexOf(e)+1}
+                    <td class="tg-01ax">{scorer.indexOf(e)+1}</td>
                     <td class="tg-0lax">{e.player.name}</td>
                     <td class="tg-0lax">
                     <img src={e.team.crest} width="25px"></img>

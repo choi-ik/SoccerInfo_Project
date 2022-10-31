@@ -48,7 +48,7 @@ function Match (props) {
                     <tbody>
                     {matches.map((e) => (
                     <tr class="tr-list">
-                        {e.utcDate.substr(0,10)}
+                        <td class="tg-0lax">{e.utcDate.substr(0,10)}</td>
                         <td class="tg-0lax">{e.competition.name !=='UEFA Champions League' ? e.matchday : "UEFA"}</td>
                         <td class="tg-0lax">
                           <img src={e.competition.emblem} width="40"></img>&nbsp;{e.competition.name}</td>

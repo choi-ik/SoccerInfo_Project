@@ -66,7 +66,7 @@ function CompetitionMatch (props) {
                     {com_Match.slice(offset, offset + limit).map((e) => (
                     <tbody>
                     <tr class="tr-list">
-                        { e.utcDate.substr(0,10)}
+                        <td class="tg-0lax">{ e.utcDate.substr(0,10)}</td>
                         <td class="tg-0lax">{e.competition.name!=='UEFA Champions League' ? e.matchday : "UEFA"}</td>
                         <td class="tg-0lax">
                           <img src={e.competition.emblem} width="40"></img>&nbsp;{e.competition.name}</td>

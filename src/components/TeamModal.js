@@ -69,7 +69,7 @@ function TeamModal (props) {
                             <tbody>
                             {teamInfo.map((e) => (
                             <tr class="tr-list">
-                                {teamInfo.indexOf(e)+1}
+                                <td class="tg-0lax">{teamInfo.indexOf(e)+1}</td>
                                 <td class="tg-0lax">{e.name}</td>
                                 <td class="tg-0lax">{e.position}</td>
                             </tr>
