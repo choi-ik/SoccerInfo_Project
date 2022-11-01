@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/SoccerInfo_Project/static/css/main.c59cc657.css",
+    "main.js": "/SoccerInfo_Project/static/js/main.84cd0aeb.js",
+    "index.html": "/SoccerInfo_Project/index.html",
+    "main.c59cc657.css.map": "/SoccerInfo_Project/static/css/main.c59cc657.css.map",
+    "main.84cd0aeb.js.map": "/SoccerInfo_Project/static/js/main.84cd0aeb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c59cc657.css",
+    "static/js/main.84cd0aeb.js"
+  ]
+}
