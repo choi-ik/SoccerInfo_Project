@@ -95,6 +95,7 @@ LeagueStandings.propTypes = {
 export default LeagueStandings;
 
 const LgStandings = styled.div`
+padding: 3%;
 .cap{
   caption-side: top;
   text-align: center;

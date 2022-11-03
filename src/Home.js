@@ -87,6 +87,26 @@ function Home() {
         </Container>
       </Navbar>
       {Object.keys(leagueimg).length !== 0 && (
+        <div className="sidebar">
+          <div className="sidebarWrapper">
+            <div className="sidebarMenu">
+              <ul className="sidebarList">
+                <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onClick={scorerClick_PL}><img src={leagueimg[71].flag} width="40px" />
+                &nbsp;프리미어리그</div></li>
+                <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onClick={scorerClick_PD}><img  src={leagueimg[223].flag} width="40px" />
+                &nbsp;라 리가</div></li>
+                <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onClick={scorerClick_SA}><img  src={leagueimg[113].flag} width="40px" />
+                &nbsp;세리에 A</div></li>
+                <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onClick={scorerClick_BL}><img  src={leagueimg[87].flag} width="40px" />
+                &nbsp;분데스리가</div></li>
+                <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onClick={scorerClick_LEAGUE}><img  src={leagueimg[80].flag} width="40px" />
+                &nbsp;리그 1</div></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* {Object.keys(leagueimg).length !== 0 && (
         
           <div className="box1">
             <div>
@@ -110,7 +130,7 @@ function Home() {
               &nbsp;리그 1</Button>
             </div>
         </div>
-      )}
+      )} */}
 
       <LeagueStandings className="box2"
         leaguename={leaguename}
@@ -139,20 +159,26 @@ export default Home;
 
 const CountryImage = styled.div`
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr;
+  grid-template-columns: 250px 2fr 2fr;
   grid-auto-rows: minmax(10px, auto);
-  grid-gap: 20px;
+  
 
   .box1{
     margin-top: 40px;
   }
 
   .bt1{
-    width: 100%;
+    margin-top: 20px;
     text-align: left;
   }
   .Navbar {
     grid-column-start: 1;
     grid-column-end: 4;
+  }
+  .sidebar {
+    background-color: #F5F5F5;
+  }
+  .sidebarList {
+    padding-top: 3%;
   }
 `

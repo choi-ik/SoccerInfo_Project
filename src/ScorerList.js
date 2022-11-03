@@ -73,6 +73,8 @@ ScorerList.propTypes = {
 export default ScorerList;
 
 const ScList = styled.div`
+padding: 3%;
+
 .cap{
   caption-side: top;
   text-align: center;
