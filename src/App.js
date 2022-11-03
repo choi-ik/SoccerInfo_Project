@@ -10,8 +10,7 @@ function App() {
   return(
     <Router>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/:id" element={<TeamInformation />}></Route>
+        <Route path={`${process.env.PUBLIC_URL}/`} element={<Home />}></Route>
       </Routes>
     </Router>
   );

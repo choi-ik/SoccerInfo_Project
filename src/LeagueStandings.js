@@ -146,11 +146,13 @@ const LgStandings = styled.div`
   .tl .tl-0lax{
     text-align: left;
     vertical-align: top;
+    border-bottom: 1px solid gray;
   }
 
   .tl .tl-0laz{
     text-align: left;
     vertical-align: top;
     cursor : pointer;
+    border-bottom: 1px solid gray;
   }
 `

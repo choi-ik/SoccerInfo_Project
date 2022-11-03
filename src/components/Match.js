@@ -122,6 +122,7 @@ const MatchList = styled.div`
   }
   .tg .tg-0lax{
     text-align: center;
-    vertical-align: top
+    vertical-align: top;
+    border-bottom: 1px solid gray;
   }
 `

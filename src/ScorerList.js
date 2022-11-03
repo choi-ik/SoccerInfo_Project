@@ -48,7 +48,7 @@ function ScorerList(leaguename) {
                 <tbody>
                 {scorer.map((e) => (
                 <tr class="tr-list">
-                    <td class="tg-01ax">{scorer.indexOf(e)+1}</td>
+                    <td class="tg-0lax">{scorer.indexOf(e)+1}</td>
                     <td class="tg-0lax">{e.player.name}</td>
                     <td class="tg-0lax">
                     <img src={e.team.crest} width="25px"></img>
@@ -123,6 +123,7 @@ const ScList = styled.div`
   }
   .tg .tg-0lax{
     text-align: left;
-    vertical-align: top
+    vertical-align: top;
+    border-bottom: 1px solid gray;
   }
 `

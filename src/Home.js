@@ -70,7 +70,7 @@ function Home() {
   
   const seasonBtn = () => {  //드롭다운 함수
     let seasonList = [];
-    for(let i=2022; i>=2000; i--){
+    for(let i=2022; i>=2020; i--){
       seasonList.push(<Dropdown.Item onClick={() => setSeason(i)}>{i}</Dropdown.Item>);
     }
     return seasonList;
@@ -80,7 +80,7 @@ function Home() {
     <CountryImage>
       <Navbar className="Navbar" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">SccoerInfo</Navbar.Brand>
+          <Navbar.Brand href="#home">SoccerInfo</Navbar.Brand>
           <DropdownButton className="Dropdown" id="dropdown-basic-button" title={season}>
             {seasonBtn()}
           </DropdownButton>
