@@ -52,7 +52,7 @@ function CompetitionMatch (props) {
         <ComMatch>
             {Object.keys(com_Match).length !== 0 && (
                 <table class="tg" width="100%">
-                    <caption className="cap">리그 경기 일정</caption>
+                    <caption className="cap">리그 전체 경기 일정</caption>
                     <thead>
                     <tr>
                         <th class="tg-c3ow">Date</th>

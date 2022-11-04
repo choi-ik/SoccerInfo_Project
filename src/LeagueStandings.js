@@ -63,7 +63,7 @@ function LeagueStandings(leaguename) {
                         }}
                         
                         // onClick={() => setModalShow(true)}
-                        >
+                         >
                     <img src={e.team.crest} width="25px"></img>
                     &nbsp;{e.team.name}
                       {/* <Link to={`/${e.team.id}`}>&nbsp;{e.team.name}</Link> */}

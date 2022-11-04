@@ -19,7 +19,7 @@ function ScorerList(leaguename) {
             
           })
           console.log(scorerName.data.scorers,"리그 내 득점 순위 API");
-          setScorer(scorerName.data.scorers);
+          setScorer(scorerName.data);
         }
         catch(err){
           alert(err);
@@ -33,6 +33,7 @@ function ScorerList(leaguename) {
     return (
         <ScList>
         {Object.keys(scorer).length !== 0 && (
+          <div>
             <table class="tg" width="100%">
                 <caption className="cap">득점 순위</caption>
                 <thead>
@@ -46,9 +47,9 @@ function ScorerList(leaguename) {
                 </tr>
                 </thead>
                 <tbody>
-                {scorer.map((e) => (
+                {scorer.scorers.map((e) => (
                 <tr class="tr-list">
-                    <td class="tg-0lax">{scorer.indexOf(e)+1}</td>
+                    <td class="tg-0lax">{scorer.scorers.indexOf(e)+1}</td>
                     <td class="tg-0lax">{e.player.name}</td>
                     <td class="tg-0lax">
                     <img src={e.team.crest} width="25px"></img>
@@ -61,6 +62,8 @@ function ScorerList(leaguename) {
                 ))}
                 </tbody>
             </table>
+            <img className="leagueImg" src={process.env.PUBLIC_URL + '/img/soccerball.png'}/>
+          </div>
         )}
       </ScList>
     );
@@ -74,6 +77,13 @@ export default ScorerList;
 
 const ScList = styled.div`
 padding: 3%;
+
+.leagueImg{
+    width: 90%;
+    margin: auto;
+    display: block;
+    margin-top: 10%;
+}
 
 .cap{
   caption-side: top;
