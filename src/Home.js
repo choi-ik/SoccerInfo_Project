@@ -175,7 +175,7 @@ const CountryImage = styled.div`
     background-color: #F5F5F5;
   }
   .sidebarList {
-    padding-top: 5%;
+    padding-top: 10%;
     margin-top: 40px;
   }
 `
