@@ -4,16 +4,17 @@ import styled from "styled-components";
 import Pagination from "./Pagination";
 
 function CompetitionMatch (props) {
-    const [com_Match, set_Com_Match] = useState([]); //리그 전체 최근 지난 경기 일정 저장 State
+    const [com_Match, set_Com_Match] = useState([]);    //리그 전체 최근 지난 경기 일정 저장 State
     const [futureMatch, setFutureMatch] = useState([]); //리그 전체 진행되지 않은 경기 일정 State
 
-    const [page,setPage] = useState(1);
-    const [limit, setLimit] = useState(20);
+    const [page,setPage] = useState(1);                 //페이지네이션 state
+    const [limit, setLimit] = useState(20);             //페이지네이션 한 화면에 보여주는 팀개수
     const offset = (page -1) * limit;
 
     const footballAPIKEY = props.APIKEY;
 
-    let competitionList = [];
+    let competitionList = [];                           //진행된 경기만 배열에 push하기 위해 배열 선언
+
     const get_Competition_Match_API = async() => {
         try {
             const competition_Match = await axios ({
@@ -27,8 +28,8 @@ function CompetitionMatch (props) {
                 url: `v4/competitions/${props.leaguename}/matches?season=${props.season}`,  //리그 전체 경기 일정 API
                 
               })
-              console.log(competition_Match.data.matches,"리그 전체 경기일정 정보");
-              setFutureMatch(competition_Match.data.matches);//진행되지 않은 리그 경기 Set
+              // console.log(competition_Match.data.matches,"리그 전체 경기일정 정보");
+              // setFutureMatch(competition_Match.data.matches);//진행되지 않은 리그 경기 Set
 
               competition_Match.data.matches.sort(function(a,b) { //최근경기 가장 까가운 날짜로 보이게 내림차순 하기 위함.
                 return parseFloat(Date.parse(b.utcDate)) - parseFloat(Date.parse(a.utcDate));
@@ -38,10 +39,10 @@ function CompetitionMatch (props) {
                 if(e.score.winner !== null) competitionList.push(competition_Match.data.matches[i]);
               });
 
-              console.log(competitionList,"배열에 잘 들어갔나 확인");
+              console.log(competitionList,"진행된 경기 내림차순");
               set_Com_Match(competitionList); //최근 진행된 경기만 set해줌.
               
-        }catch(e) {
+        } catch(e) {
           alert(e);
         }
     }
@@ -89,7 +90,7 @@ function CompetitionMatch (props) {
                 limit={limit}
                 page={page}
                 setPage={setPage}
-                />
+              />
             </footer>
         </ComMatch>
         

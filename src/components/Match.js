@@ -7,6 +7,7 @@ function Match (props) {
 
     const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47";
 
+    /* 팀이름 클릭시 팀 id를 가져와 팀의 경기 일정 및 정보 api 요청 */
     const getMatchesAPI = async() => {
         try {
             const matchInfo = await axios ({
@@ -16,7 +17,7 @@ function Match (props) {
                   "Content-Type": "application/json",
                   "X-Auth-Token": footballAPIKEY,
                 },
-                url: `v4/teams/${props.id}/matches`, // 내가 보고싶은 팀의 경기 일정 API
+                url: `v4/teams/${props.id}/matches`,
                 
               })
               console.log(matchInfo.data.matches,"모달 경기일정 정보");

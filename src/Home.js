@@ -42,33 +42,31 @@ function Home() {
           alert(err);
         }
     };
-  
+
+    /* leaguename이 바뀔때마다 새롭게 api를 불러와서 렌더링 */
     useEffect(() => { 
       getCountryApi();
     }, [leaguename]);
 
-    const scorerClick_PL = () => { //영국 프리미어리그를 클릭하면 PL로 setLeagueName에 값을 넣어줌
+    /* 클릭이벤트 위에서부터 프리미어, 라리가, 세리에, 분데스, 리그앙 순 으로 set state 해줌 */
+    const scorerClick_PL = () => {
         setLeagueName("PL");
     };
-
     const scorerClick_PD = () => {
-        setLeagueName("PD"); // 스페인 라 리가를 클릭하면 PD로 set해줌
+        setLeagueName("PD");
     };
-
     const scorerClick_SA = () => {
         setLeagueName("SA");
     };
-
     const scorerClick_BL = () => {
         setLeagueName("BL1");
     };
-
     const scorerClick_LEAGUE = () => {
       setLeagueName("FL1");
-  };
+    };
 
-  
-  const seasonBtn = () => {  //드롭다운 함수
+  /* 드롭다운 함수 */
+  const seasonBtn = () => {  
     let seasonList = [];
     for(let i=2022; i>=2020; i--){
       seasonList.push(<Dropdown.Item onClick={() => setSeason(i)}>{i}</Dropdown.Item>);
@@ -106,32 +104,7 @@ function Home() {
           </div>
         </div>
       )}
-      {/* {Object.keys(leagueimg).length !== 0 && (
-        
-          <div className="box1">
-            <div>
-            <Button className="bt1" variant="outline-dark" onClick={scorerClick_PL}><img src={leagueimg[71].flag} width="40px" />
-              &nbsp;프리미어리그</Button>
-            </div>
-            <div>
-            <Button className="bt1" variant="outline-dark" onClick={scorerClick_PD}><img  src={leagueimg[223].flag} width="40px" />
-              &nbsp;라 리가</Button>
-            </div>
-            <div>
-            <Button className="bt1" variant="outline-dark" onClick={scorerClick_SA}><img  src={leagueimg[113].flag} width="40px" />
-              &nbsp;세리에 A</Button>
-            </div>
-            <div>
-            <Button className="bt1" variant="outline-dark" onClick={scorerClick_BL}><img  src={leagueimg[87].flag} width="40px" />
-              &nbsp;분데스리가</Button>
-            </div>
-            <div>
-            <Button className="bt1" variant="outline-dark" onClick={scorerClick_LEAGUE}><img  src={leagueimg[80].flag} width="40px" />
-              &nbsp;리그 1</Button>
-            </div>
-        </div>
-      )} */}
-
+      
       <LeagueStandings className="box2"
         leaguename={leaguename}
         APIKEY={footballAPIKEY}

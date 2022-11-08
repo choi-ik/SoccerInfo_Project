@@ -5,8 +5,9 @@ import axios from 'axios';
 
 function ScorerList(leaguename) {
     const [scorer, setScorer] = useState([]); //변경된 leaguename에맞게 득점순위 저장
-
-    const getScorerAPI = async() => { // 득점순위 알 수 있는 API 가져옴
+    
+    /* 득점순위 알 수 있는 api 받아옴 */
+    const getScorerAPI = async() => { 
         try {
           const scorerName = await axios ({
             method: 'get',
@@ -15,6 +16,7 @@ function ScorerList(leaguename) {
               "Content-Type": "application/json",
               "X-Auth-Token": leaguename.APIKEY,
             },
+            /* leaguename, season props로 받아와서 get 요청 */
             url: `/v4/competitions/${leaguename.leaguename}/scorers?season=${leaguename.season}`, //득점순위를 알 수 있는 API 주소
             
           })
@@ -26,6 +28,7 @@ function ScorerList(leaguename) {
         }
       };
 
+      /* leaguename, season 바뀔때마다 새로 api요청 후 렌더링 */
       useEffect(() => {
         getScorerAPI();
       },[leaguename.leaguename, leaguename.season])

@@ -81,7 +81,7 @@ function TeamModal (props) {
                 <Match 
                     className="box2"
                     id={props.id}
-                    >
+                >
                 </Match>
             </TmModal>
        

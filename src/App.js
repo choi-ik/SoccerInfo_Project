@@ -3,7 +3,6 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import TeamInformation from "./components/TeamInformation";
 import Home from "./Home";
 
 function App() {

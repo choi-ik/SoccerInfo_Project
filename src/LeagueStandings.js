@@ -8,10 +8,11 @@ import TeamModal from './components/TeamModal';
 
 function LeagueStandings(leaguename) {
     const [leagueStandings, setLeagueStandings] = useState([]); //변경된 leaguename에 맞게 각 리그 순위 저장
-    const [teamId, setTeamId] = useState(0); //모달에게 넘겨주기 위한 팀 id
-    const [modalShow, setModalShow] = useState(false); //팀정보를 모달에 보여주기 위한 state
+    const [teamId, setTeamId] = useState(0);                    //모달에게 넘겨주기 위한 팀 id
+    const [modalShow, setModalShow] = useState(false);          //팀정보를 모달에 보여주기 위한 state
 
-    const getLeagueStandingsAPI = async () => { // 팀 순위를 알 수 있는 API 가져옴
+    /* 팀 순위를 알 수 있는 API 가져옴 */
+    const getLeagueStandingsAPI = async () => {
         try {
           const leagueStandings = await axios ({
             method: 'get',
@@ -20,7 +21,8 @@ function LeagueStandings(leaguename) {
               "Content-Type": "application/json",
               "X-Auth-Token": leaguename.APIKEY,
             },
-            url: `/v4/competitions/${leaguename.leaguename}/standings?season=${leaguename.season}`, //각 리그에 포함된 팀들 순위를 알 수 있는 API 주소
+            /* leaguename, season을 props로 받아와 get요청 */
+            url: `/v4/competitions/${leaguename.leaguename}/standings?season=${leaguename.season}`, 
             
           })
           console.log(leagueStandings.data,"리그 내 팀 순위 API");
@@ -30,7 +32,8 @@ function LeagueStandings(leaguename) {
           alert(err);
         }
       };
-
+      
+    /* leangname, season이 바뀔때마다 api새로 받아와서 렌더링 */
     useEffect(() => {
       getLeagueStandingsAPI();
     }, [leaguename.leaguename, leaguename.season]);
@@ -61,12 +64,9 @@ function LeagueStandings(leaguename) {
                           setTeamId(e.team.id);
                           setModalShow(true);
                         }}
-                        
-                        // onClick={() => setModalShow(true)}
-                         >
+                    >
                     <img src={e.team.crest} width="25px"></img>
                     &nbsp;{e.team.name}
-                      {/* <Link to={`/${e.team.id}`}>&nbsp;{e.team.name}</Link> */}
                     </td>
                     <td class="tl-0lax">{e.playedGames}</td>
                     <td class="tl-0lax">{e.won}</td>

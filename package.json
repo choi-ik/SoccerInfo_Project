@@ -1,5 +1,4 @@
 {
-  "proxy": "https://api.football-data.org",
   "name": "my-apps",
   "version": "0.1.0",
   "private": true,
@@ -46,5 +45,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://choi-ik.github.io/SoccerInfo_Project/"
+  "homepage": "./",
+  "proxy": "https://api.football-data.org"
 }
