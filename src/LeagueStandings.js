@@ -35,7 +35,7 @@ function LeagueStandings(leaguename) {
           setLeagueStandings(leagueStandings.data.standings[0].table);
         }
         catch(err){
-          alert(err);
+          alert(err+"\n"+"1분 뒤 다시 시도해 주십시오.");
         }
       };
       

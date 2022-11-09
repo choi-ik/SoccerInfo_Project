@@ -35,7 +35,7 @@ function TeamModal (props) {
                   setTeamName(Teaminfo.data.name); //모달 상단 팀이름
                   setTeamImg(Teaminfo.data.crest); //모달 상단 팀 엠블럼
             }catch(e) {
-                alert(e);
+                alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");
             }
         }
 

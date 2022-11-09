@@ -29,7 +29,7 @@ function Match (props) {
               console.log(matchInfo.data.matches,"모달 경기일정 정보");
               setMatches(matchInfo.data.matches);
         }catch(e) {
-            alert(e);
+            alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");
         }
     }
 

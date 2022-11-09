@@ -49,7 +49,7 @@ function CompetitionMatch (props) {
               set_Com_Match(competitionList); //최근 진행된 경기만 set해줌.
               
         } catch(e) {
-          alert(e);
+          alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");
         }
     }
     useEffect(() => {
