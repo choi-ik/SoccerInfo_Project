@@ -45,6 +45,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "./",
+  "homepage": "https://choi-ik.github.io/SoccerInfo_Project",
   "proxy": "https://api.football-data.org"
 }

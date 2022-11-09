@@ -20,6 +20,12 @@ function CompetitionMatch (props) {
             const competition_Match = await axios ({
                 method: 'get',
                 headers: {
+                  "Access-Control-Allow-Origin": "*",
+                  "Access-Control-Allow-Methods": "GET",
+                  'Access-Control-Allow-Headers': '*',
+                  "Access-Control-Allow-Credentials":  "true",
+                  "Access-Control-Expose-Headers": "*",
+
                   "Accept": "application/json",
                   "Content-Type": "application/json",
                   "X-Auth-Token": footballAPIKEY,
