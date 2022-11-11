@@ -7,7 +7,7 @@ function CompetitionMatch (props) {
     const [com_Match, set_Com_Match] = useState([]);    //리그 전체 최근 지난 경기 일정 저장 State
     const [futureMatch, setFutureMatch] = useState([]); //리그 전체 진행되지 않은 경기 일정 State
 
-    const [page,setPage] = useState(1);                 //페이지네이션 state
+    const [page, setPage] = useState(1);                 //페이지네이션 state
     const [limit, setLimit] = useState(20);             //페이지네이션 한 화면에 보여주는 팀개수
     const offset = (page -1) * limit;
 
@@ -20,18 +20,14 @@ function CompetitionMatch (props) {
             const competition_Match = await axios ({
                 method: 'get',
                 headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Access-Control-Allow-Methods": "GET",
-                  'Access-Control-Allow-Headers': '*',
-                  "Access-Control-Allow-Credentials":  "true",
-                  "Access-Control-Expose-Headers": "*",
+                  
 
                   "Accept": "application/json",
                   "Content-Type": "application/json",
                   "X-Auth-Token": footballAPIKEY,
                   "X-Unfold-Goals" : true
                 },
-                url: `v4/competitions/${props.leaguename}/matches?season=${props.season}`,  //리그 전체 경기 일정 API
+                url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/competitions/${props.leaguename}/matches?season=${props.season}`,  //리그 전체 경기 일정 API
                 
               })
               // console.log(competition_Match.data.matches,"리그 전체 경기일정 정보");

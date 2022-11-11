@@ -46,5 +46,5 @@
     ]
   },
   "homepage": "https://choi-ik.github.io/SoccerInfo_Project",
-  "proxy": "https://api.football-data.org"
+  "proxy": "https://api.football-data.org/v4"
 }

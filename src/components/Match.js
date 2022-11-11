@@ -13,17 +13,13 @@ function Match (props) {
             const matchInfo = await axios ({
                 method: 'get',
                 headers: {
-                  "Access-Control-Allow-Origin": "*",
-                  "Access-Control-Allow-Methods": "GET",
-                  'Access-Control-Allow-Headers': '*',
-                  "Access-Control-Allow-Credentials":  "true",
-                  "Access-Control-Expose-Headers": "*",
+                  
 
                   "Accept": "application/json",
                   "Content-Type": "application/json",
                   "X-Auth-Token": footballAPIKEY,
                 },
-                url: `v4/teams/${props.id}/matches`,
+                url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/teams/${props.id}/matches`,
                 
               })
               console.log(matchInfo.data.matches,"모달 경기일정 정보");

@@ -18,7 +18,7 @@ function Home() {
 
   const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47"; 
 
-  const leagueListURL = "/v4/areas"; //리그를 가지고있는 나라들 API
+  const leagueListURL = "/areas"; //리그를 가지고있는 나라들 API
 
   const getCountryApi = async () => { //리그를 포함하는 나라 API 가져옴
         try {
@@ -26,17 +26,13 @@ function Home() {
           const country = await axios ({
             method: 'get',
             headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET",
-              'Access-Control-Allow-Headers': '*',
-              "Access-Control-Allow-Credentials":  "true",
-              "Access-Control-Expose-Headers": "*",
+              
               
               "Accept": "application/json",
               "Content-Type": "application/json",
               "X-Auth-Token": footballAPIKEY,
             },
-            url: leagueListURL,
+            url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4${leagueListURL}`,
             
           })
 
@@ -52,7 +48,7 @@ function Home() {
     /* leaguename이 바뀔때마다 새롭게 api를 불러와서 렌더링 */
     useEffect(() => { 
       getCountryApi();
-    }, [leaguename]);
+    }, []);
 
     /* 클릭이벤트 위에서부터 프리미어, 라리가, 세리에, 분데스, 리그앙 순 으로 set state 해줌 */
     const scorerClick_PL = () => {
@@ -156,5 +152,8 @@ const CountryImage = styled.div`
   .sidebarList {
     padding-top: 10%;
     margin-top: 40px;
+  }
+  .sidebarListItem {
+    cursor : pointer;
   }
 `

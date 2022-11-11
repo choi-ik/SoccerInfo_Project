@@ -12,18 +12,14 @@ function ScorerList(leaguename) {
           const scorerName = await axios ({
             method: 'get',
             headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET",
-              'Access-Control-Allow-Headers': '*',
-              "Access-Control-Allow-Credentials":  "true",
-              "Access-Control-Expose-Headers": "*",
+              
 
               "Accept": "application/json",
               "Content-Type": "application/json",
               "X-Auth-Token": leaguename.APIKEY,
             },
             /* leaguename, season props로 받아와서 get 요청 */
-            url: `/v4/competitions/${leaguename.leaguename}/scorers?season=${leaguename.season}`, //득점순위를 알 수 있는 API 주소
+            url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/competitions/${leaguename.leaguename}/scorers?season=${leaguename.season}`, //득점순위를 알 수 있는 API 주소
             
           })
           console.log(scorerName.data.scorers,"리그 내 득점 순위 API");

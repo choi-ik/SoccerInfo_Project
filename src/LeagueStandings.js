@@ -17,18 +17,14 @@ function LeagueStandings(leaguename) {
           const leagueStandings = await axios ({
             method: 'get',
             headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET",
-              'Access-Control-Allow-Headers': '*',
-              "Access-Control-Allow-Credentials":  "true",
-              "Access-Control-Expose-Headers": "*",
+              
 
               "Accept": "application/json",
               "Content-Type": "application/json",
               "X-Auth-Token": leaguename.APIKEY,
             },
             /* leaguename, season을 props로 받아와 get요청 */
-            url: `/v4/competitions/${leaguename.leaguename}/standings?season=${leaguename.season}`, 
+            url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/competitions/${leaguename.leaguename}/standings?season=${leaguename.season}`, 
             
           })
           console.log(leagueStandings.data,"리그 내 팀 순위 API");
