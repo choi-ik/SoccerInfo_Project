@@ -17,9 +17,9 @@ Web_Address : https://choi-ik.github.io/SoccerInfo_Project/ <br/>
 - 리그이름 리스트
 - 리그별 득점 순위(팀앰블럼, 득점순위, 팀이름, 선수이름, 골수, 어시스트수, 페널티킥수)
 - 리그별 팀 순위(팀앰블럼, 팀 순위, 팀이름, 승, 무, 패, 골득실, 골, 실점)
-- 팀 정보(선수정보(등번호, 이름, 포지션), 팀 경기 일정
--리그 전체 팀 경기 일정(한달단위? OR 시즌단위?) <br/><br/>
-![image](https://user-images.githubusercontent.com/91654577/201321315-f1054096-1564-4f88-aa54-54ab1d5a927f.png)
+- 팀 정보(선수구성, 이름, 포지션), 팀 경기 일정
+- 리그 전체 팀 경기 일정(시즌단위) <br/><br/>
+![image](https://user-images.githubusercontent.com/91654577/201321478-33cb5b3c-3fe3-4102-80d7-57f8ededf4ce.png)
 
 
 ## 에러 사항(해결 방법)
