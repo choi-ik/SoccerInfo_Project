@@ -2,7 +2,7 @@
 
 ## 소개
 <hr/>
-**Web_Address : https://choi-ik.github.io/SoccerInfo_Project/** <br/>
+**Web_Address :** https://choi-ik.github.io/SoccerInfo_Project/ <br/>
 전 세계 5대 축구 리그(영국, 스페인, 이탈리아, 독일, 프랑스)의 정보 공유 <br/><br/>
 
 ## 기능
