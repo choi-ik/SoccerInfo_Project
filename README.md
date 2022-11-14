@@ -25,4 +25,4 @@
 ## 팀
 1인 개발 - 최익
 
-## [에러 사항(해결 방법)](https://www.notion.so/SoccerInfo_Project-344b33d123fc4d87a995c5cadba620cc)
+## [에러 사항(해결 방법)](https://notch-walrus-73b.notion.site/SoccerInfo_Project-344b33d123fc4d87a995c5cadba620cc)
