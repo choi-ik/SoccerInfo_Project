@@ -18,8 +18,9 @@ Web_Address : https://choi-ik.github.io/SoccerInfo_Project/ <br/>
 - 리그별 팀 순위(팀앰블럼, 팀 순위, 팀이름, 승, 무, 패, 골득실, 골, 실점)
 - 팀 정보(선수구성, 이름, 포지션), 팀 경기 일정
 - 리그 전체 팀 경기 일정(시즌단위) <br/><br/>
-![image](https://user-images.githubusercontent.com/91654577/201321478-33cb5b3c-3fe3-4102-80d7-57f8ededf4ce.png) <br/>
-![image](https://user-images.githubusercontent.com/91654577/201559011-ec9667f1-f053-49f7-b2cf-196fdb558ad3.png)
+![image](https://user-images.githubusercontent.com/91654577/201321478-33cb5b3c-3fe3-4102-80d7-57f8ededf4ce.png)
+
+![image](https://user-images.githubusercontent.com/91654577/201559174-946eefb1-f53f-42b6-9211-082d3f46936c.png)
 
 
 ## 팀
