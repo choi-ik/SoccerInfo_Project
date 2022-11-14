@@ -1,8 +1,8 @@
 # SoccerInfo_Project
 
 ## 소개
-**Web_Address : https://choi-ik.github.io/SoccerInfo_Project/** <br/>
-전 세계 5대 축구 리그(영국, 스페인, 이탈리아, 독일, 프랑스)의 정보 공유 <br/><br/>
+- **Web_Address : https://choi-ik.github.io/SoccerInfo_Project/** 
+- 전 세계 5대 축구 리그(영국, 스페인, 이탈리아, 독일, 프랑스)의 정보 공유 
 
 ## 기능
 1. 5대 리그 안의 팀들에 대한 정보를 API로 불러와 보여줌.
