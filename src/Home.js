@@ -12,11 +12,21 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
 function Home() {
-  const [leagueimg, setLeagueimg] = useState([]); //leagueListURL 에서 리그가 포함된 나라 이미지 저장
-  const [leaguename, setLeagueName] = useState("PL"); //리그이름 또는 나라 이미지를 클릭했을때 leaguename 값 변경
-  const [season, setSeason] = useState(2022);
+  const [leagueimg, setLeagueimg] = useState([]); // 받아온 api 객체 배열의 flag(이미지주소 값)
+  const [leaguename, setLeagueName] = useState("PL"); // Props로 넘겨주기 위한 리그 코드값
+  const [season, setSeason] = useState(2022); // 시즌 드롭다운 버튼 default = 2022 
+  const [loading, setLoading] = useState(false); // API를 받아오기 전 보여줄 상태 state
 
-  const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47"; 
+  /* 하드코딩 했던 함수 부분  JSON 리팩토링*/
+  const nationCode = {
+    data: [{leagueCode: "PL", img: leagueimg[71], name: "프리미어리그"},
+           {leagueCode: "PD", img: leagueimg[223], name: "프리메라리그"},
+           {leagueCode: "SA", img: leagueimg[113], name: "세리에 A"},
+           {leagueCode: "BL1", img: leagueimg[87], name: "분데스리가"},
+           {leagueCode: "FL1", img: leagueimg[80], name: "리그 1"}] 
+  };
+  
+  const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47"; //api키 코드상에 놓지 않기.
 
   const leagueListURL = "/areas"; //리그를 가지고있는 나라들 API
 
@@ -38,34 +48,33 @@ function Home() {
 
           console.log(country.data.areas,"나라 정보 API");
           setLeagueimg(country.data.areas);
-          
+          setLoading(true);
         }
         catch (err){
           alert(err+"\n"+"1분 뒤 다시 시도해 주십시오.,");
         }
     };
 
-    /* leaguename이 바뀔때마다 새롭게 api를 불러와서 렌더링 */
     useEffect(() => { 
       getCountryApi();
     }, []);
 
-    /* 클릭이벤트 위에서부터 프리미어, 라리가, 세리에, 분데스, 리그앙 순 으로 set state 해줌 */
-    const scorerClick_PL = () => {
-        setLeagueName("PL");
-    };
-    const scorerClick_PD = () => {
-        setLeagueName("PD");
-    };
-    const scorerClick_SA = () => {
-        setLeagueName("SA");
-    };
-    const scorerClick_BL = () => {
-        setLeagueName("BL1");
-    };
-    const scorerClick_LEAGUE = () => {
-      setLeagueName("FL1");
-    };
+    /* 하드코딩 코드 윗부분에 리팩토링  */
+    // const scorerClick_PL = () => {
+    //     setLeagueName("PL");
+    // };
+    // const scorerClick_PD = () => {
+    //     setLeagueName("PD");
+    // };
+    // const scorerClick_SA = () => {
+    //     setLeagueName("SA");
+    // };
+    // const scorerClick_BL = () => {
+    //     setLeagueName("BL1");
+    // };
+    // const scorerClick_LEAGUE = () => {
+    //   setLeagueName("FL1");
+    // };
 
   /* 드롭다운 함수 */
   const seasonBtn = () => {  
@@ -77,55 +86,66 @@ function Home() {
   }
 
   return (
-    <CountryImage>
-      <Navbar className="Navbar" bg="dark" variant="dark">
-        <Container>
-          <Navbar.Brand><img src={process.env.PUBLIC_URL + '/img/soccerball.png'} width="60px"/>SoccerInfo</Navbar.Brand>
-          <DropdownButton className="Dropdown" id="dropdown-basic-button" title={season}>
-            {seasonBtn()}
-          </DropdownButton>
-        </Container>
-      </Navbar>
-      {Object.keys(leagueimg).length !== 0 && (
-        <div className="sidebar">
-          <div className="sidebarWrapper">
-            <div className="sidebarMenu">
-              <ul className="sidebarList">
-                <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={scorerClick_PL}><img src={leagueimg[71].flag} width="40px" />
-                &nbsp;프리미어리그</div></li>
-                <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={scorerClick_PD}><img  src={leagueimg[223].flag} width="40px" />
-                &nbsp;라 리가</div></li>
-                <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={scorerClick_SA}><img  src={leagueimg[113].flag} width="40px" />
-                &nbsp;세리에 A</div></li>
-                <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={scorerClick_BL}><img  src={leagueimg[87].flag} width="40px" />
-                &nbsp;분데스리가</div></li>
-                <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={scorerClick_LEAGUE}><img  src={leagueimg[80].flag} width="40px" />
-                &nbsp;리그 1</div></li>
-              </ul>
+    <>
+      {loading ? 
+      <CountryImage>
+        <Navbar className="Navbar" bg="dark" variant="dark">
+          <Container>
+            <Navbar.Brand><img src={process.env.PUBLIC_URL + '/img/soccerball.png'} width="60px"/>SoccerInfo</Navbar.Brand>
+            <DropdownButton className="Dropdown" id="dropdown-basic-button" title={season}>
+              {seasonBtn()}
+            </DropdownButton>
+          </Container>
+        </Navbar>
+        
+        {Object.keys(leagueimg).length !== 0 && (
+          <div className="sidebar">
+            <div className="sidebarWrapper">
+              <div className="sidebarMenu">
+                <ul className="sidebarList">
+                  {nationCode.data.map((e) => (
+                    <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={() => setLeagueName(e.leagueCode)}><img src={e.img.flag} width="40px" />
+                    &nbsp;{e.name}</div></li>
+                  ))}
+                  
+                  {/* <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={scorerClick_PL}><img src={leagueimg[71].flag} width="40px" />
+                  &nbsp;프리미어리그</div></li>
+                  <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={scorerClick_PD}><img  src={leagueimg[223].flag} width="40px" />
+                  &nbsp;라 리가</div></li>
+                  <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={scorerClick_SA}><img  src={leagueimg[113].flag} width="40px" />
+                  &nbsp;세리에 A</div></li>
+                  <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={scorerClick_BL}><img  src={leagueimg[87].flag} width="40px" />
+                  &nbsp;분데스리가</div></li>
+                  <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={scorerClick_LEAGUE}><img  src={leagueimg[80].flag} width="40px" />
+                  &nbsp;리그 1</div></li> */}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+        
+        <LeagueStandings className="box2"
+          leaguename={leaguename}
+          APIKEY={footballAPIKEY}
+          season={season}>
+        </LeagueStandings>
+        
+        <ScorerList className="box3"
+          leaguename={leaguename}
+          APIKEY={footballAPIKEY}
+          season={season}>
+        </ScorerList>
+        
+        <CompetitionMatch className="box4"
+          leaguename={leaguename}
+          APIKEY={footballAPIKEY}
+          season={season}>
+        </CompetitionMatch>
       
-      <LeagueStandings className="box2"
-        leaguename={leaguename}
-        APIKEY={footballAPIKEY}
-        season={season}>
-      </LeagueStandings>
-      
-      <ScorerList className="box3"
-        leaguename={leaguename}
-        APIKEY={footballAPIKEY}
-        season={season}>
-      </ScorerList>
-      
-      <CompetitionMatch className="box4"
-        leaguename={leaguename}
-        APIKEY={footballAPIKEY}
-        season={season}>
-      </CompetitionMatch>
-    
-    </CountryImage>
+      </CountryImage> 
+      : <h1>Loading...</h1> 
+      }
+    </>
   ); 
 }
 

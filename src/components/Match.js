@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 
 function Match (props) {
-    const [matches, setMatches] = useState([]); // 팀의 경기일정 저장 State
+    const [matches, setMatches] = useState([]); // LeagueStandings.js 에서 Props로 받아온 데이터를 Url에 넣고 받아온 팀의 경기일정 API 저장 State
 
     const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47";
 
@@ -75,6 +75,8 @@ function Match (props) {
 export default Match;
 
 const MatchList = styled.div`
+width: 75%;
+margin-right: 10px;
 .cap{
   caption-side: top;
   text-align: center;
@@ -84,6 +86,9 @@ const MatchList = styled.div`
     border-collapse: collapse;
     border-color: #ccc;
     border-spacing: 0;
+    width: 98%;
+    margin-left: 20px;
+    
   }
   
   .tg td{

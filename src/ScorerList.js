@@ -4,7 +4,7 @@ import styled from "styled-components";
 import axios from 'axios';
 
 function ScorerList(leaguename) {
-    const [scorer, setScorer] = useState([]); //변경된 leaguename에맞게 득점순위 저장
+    const [scorer, setScorer] = useState([]); // 받아온 API 데이터(득점 순위) 저장
     
     /* 득점순위 알 수 있는 api 받아옴 */
     const getScorerAPI = async() => { 

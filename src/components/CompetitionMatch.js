@@ -4,11 +4,10 @@ import styled from "styled-components";
 import Pagination from "./Pagination";
 
 function CompetitionMatch (props) {
-    const [com_Match, set_Com_Match] = useState([]);    //리그 전체 최근 지난 경기 일정 저장 State
-    const [futureMatch, setFutureMatch] = useState([]); //리그 전체 진행되지 않은 경기 일정 State
+    const [com_Match, set_Com_Match] = useState([]);    // 받아온 API 데이터(리그 전체 경기) 저장
 
-    const [page, setPage] = useState(1);                 //페이지네이션 state
-    const [limit, setLimit] = useState(20);             //페이지네이션 한 화면에 보여주는 팀개수
+    const [page, setPage] = useState(1);                 // 페이지네이션 default 페이지 = 1
+    const [limit, setLimit] = useState(20);             // 페이지네이션 한 화면에 보여주는 팀개수 default = 20
     const offset = (page -1) * limit;
 
     const footballAPIKEY = props.APIKEY;

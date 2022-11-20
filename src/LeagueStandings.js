@@ -4,12 +4,15 @@ import styled from "styled-components";
 import axios from 'axios';
 import {Link} from "react-router-dom";
 import TeamModal from './components/TeamModal';
+import Modal from './components/Modal';
 
 
 function LeagueStandings(leaguename) {
-    const [leagueStandings, setLeagueStandings] = useState([]); //변경된 leaguename에 맞게 각 리그 순위 저장
-    const [teamId, setTeamId] = useState(0);                    //모달에게 넘겨주기 위한 팀 id
-    const [modalShow, setModalShow] = useState(false);          //팀정보를 모달에 보여주기 위한 state
+    const [leagueStandings, setLeagueStandings] = useState([]); // Props로 받아온 leaguename(리그 코드), season(시즌)을 url에 넣어 받아온 API 데이터(팀 순위)를 저장
+    const [teamId, setTeamId] = useState(0);                    // 모달에게 Props로 넘겨주기 위한 팀 id
+    const [modalShow, setModalShow] = useState(false);          // 팀정보를 보여주는 모달을 저장하는 state 팀이름이 클릭되지 않았을시 보여주지 않기 위해 기본값 false
+
+    const [modalOpen, setModalOpen] = useState(false);          // 모달 노출 여부
 
     /* 팀 순위를 알 수 있는 API 가져옴 */
     const getLeagueStandingsAPI = async () => {
@@ -64,7 +67,7 @@ function LeagueStandings(leaguename) {
                         variant="primary"
                         onClick={() => {
                           setTeamId(e.team.id);
-                          setModalShow(true);
+                          setModalOpen(true);
                         }}
                     >
                     <img src={e.team.crest} width="25px"></img>
@@ -80,12 +83,21 @@ function LeagueStandings(leaguename) {
                 </tbody>
             </table>
         )}
-        <TeamModal
+        {/* <TeamModal
+          id={teamId}
           show={modalShow}
           onHide={() => setModalShow(false)}
+        /> */}
+
+        { modalOpen ? 
+        <Modal
           id={teamId}
-        />
-        
+          show={modalOpen}
+          hide={() => setModalOpen(false)}
+          apiKey={leaguename.APIKEY}
+        /> 
+        : false }
+
         </LgStandings>
       );
 }
