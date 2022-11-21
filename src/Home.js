@@ -47,8 +47,8 @@ function Home() {
           })
 
           console.log(country.data.areas,"나라 정보 API");
-          setLeagueimg(country.data.areas);
-          setLoading(true);
+          setLeagueimg(country.data.areas); // 받아온 데이터 set 해줌
+          setLoading(true); // API를 받아오고 난뒤 true set 해줌
         }
         catch (err){
           alert(err+"\n"+"1분 뒤 다시 시도해 주십시오.,");
@@ -59,22 +59,22 @@ function Home() {
       getCountryApi();
     }, []);
 
-    /* 하드코딩 코드 윗부분에 리팩토링  */
-    // const scorerClick_PL = () => {
-    //     setLeagueName("PL");
-    // };
-    // const scorerClick_PD = () => {
-    //     setLeagueName("PD");
-    // };
-    // const scorerClick_SA = () => {
-    //     setLeagueName("SA");
-    // };
-    // const scorerClick_BL = () => {
-    //     setLeagueName("BL1");
-    // };
-    // const scorerClick_LEAGUE = () => {
-    //   setLeagueName("FL1");
-    // };
+    /* 하드코딩 코드 윗부분에 리팩토링
+    const scorerClick_PL = () => {
+        setLeagueName("PL");
+    };
+    const scorerClick_PD = () => {
+        setLeagueName("PD");
+    };
+    const scorerClick_SA = () => {
+        setLeagueName("SA");
+    };
+    const scorerClick_BL = () => {
+        setLeagueName("BL1");
+    };
+    const scorerClick_LEAGUE = () => {
+      setLeagueName("FL1");
+    }; */
 
   /* 드롭다운 함수 */
   const seasonBtn = () => {  
@@ -87,7 +87,7 @@ function Home() {
 
   return (
     <>
-      {loading ? 
+      {loading ? // loading이 API를 받아와 true가 될때까지 Loading 텍스트를 보여줌
       <CountryImage>
         <Navbar className="Navbar" bg="dark" variant="dark">
           <Container>
@@ -104,8 +104,17 @@ function Home() {
               <div className="sidebarMenu">
                 <ul className="sidebarList">
                   {nationCode.data.map((e) => (
-                    <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={() => setLeagueName(e.leagueCode)}><img src={e.img.flag} width="40px" />
-                    &nbsp;{e.name}</div></li>
+                    <li className="sidebarListItem">
+                      <div className="bt1" 
+                           variant="outline-dark" 
+                           onMouseOver={(e) => e.target.style.background = "#C0C0C0"} 
+                           onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} 
+                           onClick={() => setLeagueName(e.leagueCode)}>
+                           <img src={e.img.flag} 
+                                width="40px" />
+                      &nbsp;{e.name}
+                      </div>
+                    </li>
                   ))}
                   
                   {/* <li className="sidebarListItem"><div className="bt1" variant="outline-dark" onMouseOver={(e) => e.target.style.background = "#C0C0C0"} onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} onClick={scorerClick_PL}><img src={leagueimg[71].flag} width="40px" />

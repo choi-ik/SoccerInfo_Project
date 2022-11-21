@@ -10,8 +10,6 @@ import Modal from './components/Modal';
 function LeagueStandings(leaguename) {
     const [leagueStandings, setLeagueStandings] = useState([]); // Props로 받아온 leaguename(리그 코드), season(시즌)을 url에 넣어 받아온 API 데이터(팀 순위)를 저장
     const [teamId, setTeamId] = useState(0);                    // 모달에게 Props로 넘겨주기 위한 팀 id
-    const [modalShow, setModalShow] = useState(false);          // 팀정보를 보여주는 모달을 저장하는 state 팀이름이 클릭되지 않았을시 보여주지 않기 위해 기본값 false
-
     const [modalOpen, setModalOpen] = useState(false);          // 모달 노출 여부
 
     /* 팀 순위를 알 수 있는 API 가져옴 */
@@ -20,8 +18,6 @@ function LeagueStandings(leaguename) {
           const leagueStandings = await axios ({
             method: 'get',
             headers: {
-              
-
               "Accept": "application/json",
               "Content-Type": "application/json",
               "X-Auth-Token": leaguename.APIKEY,
@@ -83,12 +79,12 @@ function LeagueStandings(leaguename) {
                 </tbody>
             </table>
         )}
-        {/* <TeamModal
+        {/* Modal 컴포넌트로 대체
+         <TeamModal
           id={teamId}
           show={modalShow}
           onHide={() => setModalShow(false)}
         /> */}
-
         { modalOpen ? 
         <Modal
           id={teamId}

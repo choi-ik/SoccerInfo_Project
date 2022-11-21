@@ -10,11 +10,12 @@ function Modal (props) {
 
     const outLineRef = useRef(null); //DOM을 사용하기 위해 ref객체 생성
 
+    /* X버튼 또는 Close버튼 클릭시 모달창 닫아줌과 동시에 로딩 set */
     const closeModal = () => {
         setShowModal(false);
         setLoading(false);
     }
-
+    /* 팀 스쿼드 정보 가져오는 API */
     const getModalApi = async () => {
         try {
             const teamInfo = await axios({
@@ -27,16 +28,16 @@ function Modal (props) {
                 url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/teams/${props.id}`,
             }) 
             console.log(teamInfo.data, "모달창 팀 정보 API");
-            setTeamModal(teamInfo.data);
-            setLoading(true);
+            setTeamModal(teamInfo.data); // 가져온 데이터 set
+            setLoading(true); // API를 가져왔으니 로딩
         }catch(e) {
             alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");
         }
     }
 
     useEffect(() => {
-        setShowModal(props.show);
-        if(props.id !== 0) getModalApi(); //props로 넘어오는 id의 default값이 0임. id가 0인 팀은 내가 클릭한 팀이 아니기 때문에 조건문을 달아주었음.
+        setShowModal(props.show); // 모달컴포넌트 렌더링됨과 동시에 모달 노출여부 true set
+        if(props.id !== 0) getModalApi(); // props로 넘어오는 id의 default값이 0임. id가 0인 팀은 내가 클릭한 팀이 아니기 때문에 조건문을 달아주었음.
         
         const clickOutSide = (event) => {
             // 현재 document에서 mousedown 이벤트가 동작하면 호출되는 함수.
@@ -55,8 +56,8 @@ function Modal (props) {
 
     return (
             <>
-                {showModal ?
-                    loading ? 
+                {showModal ? // showModal이 true이면 모달을 보여주고 false일땐 모달을 노출시키지 않음.
+                    loading ? // loading이 ture이면 모달을 내 API정보들을 보여주고, false일땐 API를 가져와 true가 될 때까지 loading 텍스트를 보여줌
                     <TeamModal ref={outLineRef}>
                         <ModalHeader>
                             <img src={teamModal.crest} width="40px"/>
