@@ -9,6 +9,9 @@ function Modal (props) {
     const [loading, setLoading] = useState(false);          //다른 팀을 눌렀을때 이전에 보였던 모달안의 팀이 보이지 않게 하기 위한 state
 
     const outLineRef = useRef(null); //DOM을 사용하기 위해 ref객체 생성
+    
+    let sessionStorage = window.sessionStorage; // 세션스토리지 변수
+    const [count, setCount] = useState(0);
 
     /* X버튼 또는 Close버튼 클릭시 모달창 닫아줌과 동시에 로딩 set */
     const closeModal = () => {
@@ -27,17 +30,42 @@ function Modal (props) {
                 },
                 url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/teams/${props.id}`,
             }) 
+
+            let sessionData = {
+                data : { leagueId: props.id, teamSquad: teamInfo.data}
+            };
+
             console.log(teamInfo.data, "모달창 팀 정보 API");
             setTeamModal(teamInfo.data); // 가져온 데이터 set
             setLoading(true); // API를 가져왔으니 로딩
+
+            sessionStorage.setItem(`ModalSquad${count}`, JSON.stringify(sessionData));
         }catch(e) {
             alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");
         }
     }
-
+    
     useEffect(() => {
+        let i = 0;
+
         setShowModal(props.show); // 모달컴포넌트 렌더링됨과 동시에 모달 노출여부 true set
-        if(props.id !== 0) getModalApi(); // props로 넘어오는 id의 default값이 0임. id가 0인 팀은 내가 클릭한 팀이 아니기 때문에 조건문을 달아주었음.
+        
+        if(sessionStorage.length > 0){
+            for(i; i<count; i++){
+              if(JSON.parse(sessionStorage.getItem(`ModalSquad${i}`)) !== null){
+                if(JSON.parse(sessionStorage.getItem(`ModalSquad${i}`)).data.leagueId === props.id){
+                  setTeamModal(JSON.parse(sessionStorage.getItem(`ModalSquad${i}`)).data.teamSquad);
+                  setLoading(true);
+                  break;
+                }
+            }
+          }
+          if(i === count) getModalApi(); 
+        } else {
+            if(props.id !== 0) getModalApi(); // props로 넘어오는 id의 default값이 0임. id가 0인 팀은 내가 클릭한 팀이 아니기 때문에 조건문을 달아주었음.
+        }
+        
+        setCount(count + 1);
         
         const clickOutSide = (event) => {
             // 현재 document에서 mousedown 이벤트가 동작하면 호출되는 함수.
@@ -92,6 +120,7 @@ function Modal (props) {
                             </SquadTable>
                             <Match
                                 id={props.id}
+                                count={count}
                             />
                         </ModalBody>
                         <ModalFooter>

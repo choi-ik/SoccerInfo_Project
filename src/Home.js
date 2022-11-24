@@ -45,7 +45,6 @@ function Home() {
             url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4${leagueListURL}`,
             
           })
-
           console.log(country.data.areas,"나라 정보 API");
           setLeagueimg(country.data.areas); // 받아온 데이터 set 해줌
           setLoading(true); // API를 받아오고 난뒤 true set 해줌
@@ -54,9 +53,22 @@ function Home() {
           alert(err+"\n"+"1분 뒤 다시 시도해 주십시오.,");
         }
     };
+    
+    setTimeout(() => {
+      setInterval(() => {
+        window.sessionStorage.clear();
+        console.log("세션스토리지 정리");
+      }, 60000)
+    }, 60000);
 
     useEffect(() => { 
       getCountryApi();
+
+    //   if(window.sessionStorage.length > 9) {
+    //     window.sessionStorage.clear();
+    //     console.log("세션 스토리지 정리");
+    // }
+      
     }, []);
 
     /* 하드코딩 코드 윗부분에 리팩토링

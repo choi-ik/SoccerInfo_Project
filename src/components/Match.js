@@ -7,6 +7,8 @@ function Match (props) {
 
     const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47";
 
+    let sessionStorage = window.sessionStorage;
+
     /* 팀이름 클릭시 팀 id를 가져와 팀의 경기 일정 및 정보 api 요청 */
     const getMatchesAPI = async() => {
         try {
@@ -22,15 +24,35 @@ function Match (props) {
                 url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/teams/${props.id}/matches`,
                 
               })
+
+              let sessionData = {
+                data : { leagueId: props.id, teamMatch: matchInfo.data.matches }
+              };
+
               console.log(matchInfo.data.matches,"모달 경기일정 정보");
               setMatches(matchInfo.data.matches);
+
+              sessionStorage.setItem(`ModalMatch${props.count-1}`, JSON.stringify(sessionData));
         }catch(e) {
             alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");
         }
     }
 
     useEffect(() => {
-        getMatchesAPI();
+      let i = 0;
+        if(sessionStorage.length > 0){
+            for(i; i<props.count-1; i++){
+              if(JSON.parse(sessionStorage.getItem(`ModalMatch${i}`)) !== null){
+                if(JSON.parse(sessionStorage.getItem(`ModalMatch${i}`)).data.leagueId === props.id){
+                  setMatches(JSON.parse(sessionStorage.getItem(`ModalMatch${i}`)).data.teamMatch);
+                  break;
+                }
+            }
+          }
+          if(i === props.count-1) getMatchesAPI(); 
+        } else {
+            getMatchesAPI(); // props로 넘어오는 id의 default값이 0임. id가 0인 팀은 내가 클릭한 팀이 아니기 때문에 조건문을 달아주었음.
+        }
       }, []);
 
     return(

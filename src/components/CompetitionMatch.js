@@ -13,6 +13,8 @@ function CompetitionMatch (props) {
     const footballAPIKEY = props.APIKEY;
 
     let competitionList = [];                           //진행된 경기만 배열에 push하기 위해 배열 선언
+    let sessionStorage = window.sessionStorage;         // 세션 스토리지 변수
+    const [count, setCount] = useState(0);
 
     const get_Competition_Match_API = async() => {
         try {
@@ -40,15 +42,34 @@ function CompetitionMatch (props) {
                 if(e.score.winner !== null) competitionList.push(competition_Match.data.matches[i]);
               });
 
+              let sessionData = {
+                data : { leagueCode: props.leaguename, leagueMatch: competitionList}
+              };
+
               console.log(competitionList,"진행된 경기 내림차순");
               set_Com_Match(competitionList); //최근 진행된 경기만 set해줌.
               
+              sessionStorage.setItem(`LeagueMatch${count}`, JSON.stringify(sessionData));
         } catch(e) {
           alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");
         }
     }
     useEffect(() => {
-        get_Competition_Match_API();
+      let i = 0;
+      if(sessionStorage.length > 0){
+        for(i; i<count; i++){
+          if(JSON.parse(sessionStorage.getItem(`LeagueMatch${i}`)) !== null){
+            if(JSON.parse(sessionStorage.getItem(`LeagueMatch${i}`)).data.leagueCode === props.leaguename){
+              set_Com_Match(JSON.parse(sessionStorage.getItem(`LeagueMatch${i}`)).data.leagueMatch);
+              break;
+            }
+        }
+      }
+      if(i === count) get_Competition_Match_API();
+    }else{
+      get_Competition_Match_API();
+    }
+      setCount(count + 1);
     }, [props.leaguename, props.season])
     return(
         <ComMatch>
