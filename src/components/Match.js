@@ -24,7 +24,7 @@ function Match (props) {
                 url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/teams/${props.id}/matches`,
                 
               })
-
+              /* props로 받아온 id값과 응답받은 API 데이터 JSON 객체에 저장 */
               let sessionData = {
                 data : { leagueId: props.id, teamMatch: matchInfo.data.matches }
               };
@@ -32,6 +32,7 @@ function Match (props) {
               console.log(matchInfo.data.matches,"모달 경기일정 정보");
               setMatches(matchInfo.data.matches);
 
+              /* JSON 객체에 저장한 데이터 세션스토리지에 set 해주기 */
               sessionStorage.setItem(`ModalMatch${props.count-1}`, JSON.stringify(sessionData));
         }catch(e) {
             alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");
@@ -49,9 +50,10 @@ function Match (props) {
                 }
             }
           }
+          /* 위 조건과 아래 조건에 count-1이 들어간 이유는 Modal.js에서 보내주는 count props가 +1 증가 된 상태로 넘어오기 때문임 */
           if(i === props.count-1) getMatchesAPI(); 
         } else {
-            getMatchesAPI(); // props로 넘어오는 id의 default값이 0임. id가 0인 팀은 내가 클릭한 팀이 아니기 때문에 조건문을 달아주었음.
+            getMatchesAPI();
         }
       }, []);
 

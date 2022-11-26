@@ -28,8 +28,6 @@ function Home() {
   
   const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47"; //api키 코드상에 놓지 않기.
 
-  const leagueListURL = "/areas"; //리그를 가지고있는 나라들 API
-
   const getCountryApi = async () => { //리그를 포함하는 나라 API 가져옴
         try {
           
@@ -42,7 +40,7 @@ function Home() {
               "Content-Type": "application/json",
               "X-Auth-Token": footballAPIKEY,
             },
-            url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4${leagueListURL}`,
+            url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/areas`,
             
           })
           console.log(country.data.areas,"나라 정보 API");
@@ -54,6 +52,8 @@ function Home() {
         }
     };
     
+    /* 세션스토리지 정리를 위한 함수
+       첫 렌더링이되고 1분뒤 세션스토리지를 정리하고, 이후로 1분마다 스토리지를 정리함 */
     setTimeout(() => {
       setInterval(() => {
         window.sessionStorage.clear();
@@ -62,13 +62,7 @@ function Home() {
     }, 60000);
 
     useEffect(() => { 
-      getCountryApi();
-
-    //   if(window.sessionStorage.length > 9) {
-    //     window.sessionStorage.clear();
-    //     console.log("세션 스토리지 정리");
-    // }
-      
+      getCountryApi(); 
     }, []);
 
     /* 하드코딩 코드 윗부분에 리팩토링

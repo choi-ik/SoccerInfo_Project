@@ -1,7 +1,9 @@
 import styled from "styled-components";
 
 function Pagination ({ total, limit, page, setPage}) {
-    const numPages = Math.ceil(total / limit);
+  /* competitionMatch.js에서 보내준 API 데이터의 길이 / liit은 한 화면에 보여주는 팀 개수 */
+    const numPages = Math.ceil(total / limit); 
+    
     return(
         <>
             <Nav>

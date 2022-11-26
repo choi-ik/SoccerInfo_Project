@@ -14,8 +14,9 @@ function CompetitionMatch (props) {
 
     let competitionList = [];                           //진행된 경기만 배열에 push하기 위해 배열 선언
     let sessionStorage = window.sessionStorage;         // 세션 스토리지 변수
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(0);              //세션 스토리지에 저장할 이름 차별성 두기 위한 state 
 
+    /* 리그전체 경기를 알 수 있는 API 요청 */
     const get_Competition_Match_API = async() => {
         try {
             const competition_Match = await axios ({
@@ -31,17 +32,15 @@ function CompetitionMatch (props) {
                 url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/competitions/${props.leaguename}/matches?season=${props.season}`,  //리그 전체 경기 일정 API
                 
               })
-              // console.log(competition_Match.data.matches,"리그 전체 경기일정 정보");
-              // setFutureMatch(competition_Match.data.matches);//진행되지 않은 리그 경기 Set
-
-              competition_Match.data.matches.sort(function(a,b) { //최근경기 가장 까가운 날짜로 보이게 내림차순 하기 위함.
+              /* 최근경기 가장 까가운 날짜로 보이게 내림차순 하기 위함 */
+              competition_Match.data.matches.sort(function(a,b) { 
                 return parseFloat(Date.parse(b.utcDate)) - parseFloat(Date.parse(a.utcDate));
               });
-
-              competition_Match.data.matches.map((e, i) => { //진행되지 않은 경기는 보이지 않게 하기 위함.
+              /* 진행되지 않은 경기는 보이지 않게 하기 위해 winner가 null이 아닌 데이터만 저장 */
+              competition_Match.data.matches.map((e, i) => { 
                 if(e.score.winner !== null) competitionList.push(competition_Match.data.matches[i]);
               });
-
+              /* props로 받아온 leaguename, 응답받은 API 데이터 JSON 객체에 저장 */
               let sessionData = {
                 data : { leagueCode: props.leaguename, leagueMatch: competitionList}
               };
@@ -49,6 +48,7 @@ function CompetitionMatch (props) {
               console.log(competitionList,"진행된 경기 내림차순");
               set_Com_Match(competitionList); //최근 진행된 경기만 set해줌.
               
+              /* JSON 객체에 저장한 데이터 세션스토리지에 set 해주기 */
               sessionStorage.setItem(`LeagueMatch${count}`, JSON.stringify(sessionData));
         } catch(e) {
           alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");

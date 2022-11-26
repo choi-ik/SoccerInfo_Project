@@ -8,6 +8,7 @@ function ScorerList(leaguename) {
     
     let sessionStorage = window.sessionStorage; // 세션스토리지 변수
     const [count, setCount] = useState(0); //세션 스토리지에 저장할 이름 차별성 두기 위한 state
+
     /* 득점순위 알 수 있는 api 받아옴 */
     const getScorerAPI = async() => { 
         try {
@@ -24,7 +25,7 @@ function ScorerList(leaguename) {
             url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/competitions/${leaguename.leaguename}/scorers?season=${leaguename.season}`, //득점순위를 알 수 있는 API 주소
             
           })
-
+          /* props로 받아온 leaguename, 응답받은 API 데이터를 JSON 객체에 저장 */
           let sessionData = {
             data : { leagueCode: leaguename.leaguename, scoreRanking: scorerName.data}
           };
@@ -32,6 +33,7 @@ function ScorerList(leaguename) {
           console.log(scorerName.data.scorers,"리그 내 득점 순위 API");
           setScorer(scorerName.data);
 
+          /* JSON 객체에 저장한 데이터 세션스토리지에 set 해주기 */
           sessionStorage.setItem(`ScoreRanking${count}`, JSON.stringify(sessionData));
         }
         catch(err){
