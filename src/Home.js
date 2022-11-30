@@ -10,12 +10,15 @@ import LeagueStandings from "./LeagueStandings";
 import CompetitionMatch from "./components/CompetitionMatch";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
+import useAxios from "./Hooks/UseAxios";
 
 function Home() {
   const [leagueimg, setLeagueimg] = useState([]); // 받아온 api 객체 배열의 flag(이미지주소 값)
   const [leaguename, setLeagueName] = useState("PL"); // Props로 넘겨주기 위한 리그 코드값
   const [season, setSeason] = useState(2022); // 시즌 드롭다운 버튼 default = 2022 
-  const [loading, setLoading] = useState(false); // API를 받아오기 전 보여줄 상태 state
+  //const [loading, setLoading] = useState(false); // API를 받아오기 전 보여줄 상태 state
+
+  const [axiosData,loading] = useAxios(`/areas`, null, "areas", 0 ); // useAxios 훅에서 API 데이터와 loading 상태 받아옴
 
   /* 하드코딩 했던 함수 부분  JSON 리팩토링*/
   const nationCode = {
@@ -28,42 +31,43 @@ function Home() {
   
   const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47"; //api키 코드상에 놓지 않기.
 
-  const getCountryApi = async () => { //리그를 포함하는 나라 API 가져옴
-        try {
+  // const getCountryApi = async () => { //리그를 포함하는 나라 API 가져옴
+  //       try {
           
-          const country = await axios ({
-            method: 'get',
-            headers: {
+  //         const country = await axios ({
+  //           method: 'get',
+  //           headers: {
               
               
-              "Accept": "application/json",
-              "Content-Type": "application/json",
-              "X-Auth-Token": footballAPIKEY,
-            },
-            url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/areas`,
+  //             "Accept": "application/json",
+  //             "Content-Type": "application/json",
+  //             "X-Auth-Token": footballAPIKEY,
+  //           },
+  //           url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/areas`,
             
-          })
-          console.log(country.data.areas,"나라 정보 API");
-          setLeagueimg(country.data.areas); // 받아온 데이터 set 해줌
-          setLoading(true); // API를 받아오고 난뒤 true set 해줌
-        }
-        catch (err){
-          alert(err+"\n"+"1분 뒤 다시 시도해 주십시오.,");
-        }
-    };
+  //         })
+  //         console.log(country.data.areas,"나라 정보 API");
+  //         setLeagueimg(country.data.areas); // 받아온 데이터 set 해줌
+  //         setLoading(true); // API를 받아오고 난뒤 true set 해줌
+  //       }
+  //       catch (err){
+  //         alert(err+"\n"+"1분 뒤 다시 시도해 주십시오.");
+  //       }
+  //   };
     
     /* 세션스토리지 정리를 위한 함수
        첫 렌더링이되고 1분뒤 세션스토리지를 정리하고, 이후로 1분마다 스토리지를 정리함 */
-    setTimeout(() => {
-      setInterval(() => {
-        window.sessionStorage.clear();
-        console.log("세션스토리지 정리");
-      }, 60000)
-    }, 60000);
+    // setTimeout(() => {
+    //   setInterval(() => {
+    //     window.sessionStorage.clear();
+    //     console.log("세션스토리지 정리");
+    //   }, 60000)
+    // }, 60000);
 
     useEffect(() => { 
-      getCountryApi(); 
-    }, []);
+      //getCountryApi(); 
+      if(axiosData.length !== 0) setLeagueimg(axiosData.data.areas)
+    }, [axiosData]);
 
     /* 하드코딩 코드 윗부분에 리팩토링
     const scorerClick_PL = () => {

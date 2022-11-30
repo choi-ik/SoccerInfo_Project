@@ -2,63 +2,66 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import axios from 'axios';
+import useAxios from "./Hooks/UseAxios";
 
 function ScorerList(leaguename) {
     const [scorer, setScorer] = useState([]); // 받아온 API 데이터(득점 순위) 저장
     
-    let sessionStorage = window.sessionStorage; // 세션스토리지 변수
     const [count, setCount] = useState(0); //세션 스토리지에 저장할 이름 차별성 두기 위한 state
 
+    const [axiosData] = useAxios(`/competitions/${leaguename.leaguename}/scorers?season=${leaguename.season}`, leaguename.leaguename, "ScoreRanking", count);
     /* 득점순위 알 수 있는 api 받아옴 */
-    const getScorerAPI = async() => { 
-        try {
-          const scorerName = await axios ({
-            method: 'get',
-            headers: {
+    // const getScorerAPI = async() => { 
+    //     try {
+    //       const scorerName = await axios ({
+    //         method: 'get',
+    //         headers: {
               
 
-              "Accept": "application/json",
-              "Content-Type": "application/json",
-              "X-Auth-Token": leaguename.APIKEY,
-            },
-            /* leaguename, season props로 받아와서 get 요청 */
-            url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/competitions/${leaguename.leaguename}/scorers?season=${leaguename.season}`, //득점순위를 알 수 있는 API 주소
+    //           "Accept": "application/json",
+    //           "Content-Type": "application/json",
+    //           "X-Auth-Token": leaguename.APIKEY,
+    //         },
+    //         /* leaguename, season props로 받아와서 get 요청 */
+    //         url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/competitions/${leaguename.leaguename}/scorers?season=${leaguename.season}`, //득점순위를 알 수 있는 API 주소
             
-          })
-          /* props로 받아온 leaguename, 응답받은 API 데이터를 JSON 객체에 저장 */
-          let sessionData = {
-            data : { leagueCode: leaguename.leaguename, scoreRanking: scorerName.data}
-          };
+    //       })
+    //       /* props로 받아온 leaguename, 응답받은 API 데이터를 JSON 객체에 저장 */
+    //       let sessionData = {
+    //         data : { leagueCode: leaguename.leaguename, scoreRanking: scorerName.data}
+    //       };
 
-          console.log(scorerName.data.scorers,"리그 내 득점 순위 API");
-          setScorer(scorerName.data);
+    //       console.log(scorerName.data.scorers,"리그 내 득점 순위 API");
+    //       setScorer(scorerName.data);
 
-          /* JSON 객체에 저장한 데이터 세션스토리지에 set 해주기 */
-          sessionStorage.setItem(`ScoreRanking${count}`, JSON.stringify(sessionData));
-        }
-        catch(err){
-          alert(err+"\n"+"1분 뒤 다시 시도해 주십시오.");
-        }
-      };
+    //       /* JSON 객체에 저장한 데이터 세션스토리지에 set 해주기 */
+    //       sessionStorage.setItem(`ScoreRanking${count}`, JSON.stringify(sessionData));
+    //     }
+    //     catch(err){
+    //       alert(err+"\n"+"1분 뒤 다시 시도해 주십시오.");
+    //     }
+    //   };
 
       /* leaguename, season 바뀔때마다 새로 api요청 후 렌더링 */
       useEffect(() => {
-        let i = 0;
-        if(sessionStorage.length > 0){
-          for(i; i<count; i++){
-            if(JSON.parse(sessionStorage.getItem(`ScoreRanking${i}`)) !== null){
-              if(JSON.parse(sessionStorage.getItem(`ScoreRanking${i}`)).data.leagueCode === leaguename.leaguename){
-                setScorer(JSON.parse(sessionStorage.getItem(`ScoreRanking${i}`)).data.scoreRanking);
-                break;
-              }
-          }
-        }
-        if(i === count) getScorerAPI();
-      } else {
-        getScorerAPI();
-      }
-        setCount(count + 1);
-      },[leaguename.leaguename, leaguename.season])
+      //   let i = 0;
+      //   if(sessionStorage.length > 0){
+      //     for(i; i<count; i++){
+      //       if(JSON.parse(sessionStorage.getItem(`ScoreRanking${i}`)) !== null){
+      //         if(JSON.parse(sessionStorage.getItem(`ScoreRanking${i}`)).data.leagueCode === leaguename.leaguename){
+      //           setScorer(JSON.parse(sessionStorage.getItem(`ScoreRanking${i}`)).data.scoreRanking);
+      //           break;
+      //         }
+      //     }
+      //   }
+      //   if(i === count) getScorerAPI();
+      // } else {
+      //   getScorerAPI();
+      // }
+      setCount(count + 1);
+      if(axiosData.length !== 0) setScorer(axiosData.data);
+        
+      },[leaguename.leaguename, leaguename.season, axiosData])
 
     return (
         <ScList>
