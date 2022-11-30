@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import styled from "styled-components";
 import Pagination from "./Pagination";
 import useAxios from "../Hooks/UseAxios";
@@ -17,60 +16,10 @@ function CompetitionMatch (props) {
     let sessionStorage = window.sessionStorage;         // 세션 스토리지 변수
     const [count, setCount] = useState(0);              //세션 스토리지에 저장할 이름 차별성 두기 위한 state 
 
+    /* 리그 경기 전체 결과 API 커스텀 훅으로 받아옴 */
     const [axiosData] = useAxios(`/competitions/${props.leaguename}/matches?season=${props.season}`, props.leaguename, "LeagueMatch", count);
-    /* 리그전체 경기를 알 수 있는 API 요청 */
-    // const get_Competition_Match_API = async() => {
-    //     try {
-    //         const competition_Match = await axios ({
-    //             method: 'get',
-    //             headers: {
-                  
 
-    //               "Accept": "application/json",
-    //               "Content-Type": "application/json",
-    //               "X-Auth-Token": footballAPIKEY,
-    //               "X-Unfold-Goals" : true
-    //             },
-    //             url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/competitions/${props.leaguename}/matches?season=${props.season}`,  //리그 전체 경기 일정 API
-                
-    //           })
-    //           /* 최근경기 가장 까가운 날짜로 보이게 내림차순 하기 위함 */
-    //           competition_Match.data.matches.sort(function(a,b) { 
-    //             return parseFloat(Date.parse(b.utcDate)) - parseFloat(Date.parse(a.utcDate));
-    //           });
-    //           /* 진행되지 않은 경기는 보이지 않게 하기 위해 winner가 null이 아닌 데이터만 저장 */
-    //           competition_Match.data.matches.map((e, i) => { 
-    //             if(e.score.winner !== null) competitionList.push(competition_Match.data.matches[i]);
-    //           });
-    //           /* props로 받아온 leaguename, 응답받은 API 데이터 JSON 객체에 저장 */
-    //           let sessionData = {
-    //             data : { leagueCode: props.leaguename, leagueMatch: competitionList}
-    //           };
-
-    //           console.log(competitionList,"진행된 경기 내림차순");
-    //           setComMatch(competitionList); //최근 진행된 경기만 set해줌.
-              
-    //           /* JSON 객체에 저장한 데이터 세션스토리지에 set 해주기 */
-    //           sessionStorage.setItem(`LeagueMatch${count}`, JSON.stringify(sessionData));
-    //     } catch(e) {
-    //       alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");
-    //     }
-    // }
     useEffect(() => {
-    //   let i = 0;
-    //   if(sessionStorage.length > 0){
-    //     for(i; i<count; i++){
-    //       if(JSON.parse(sessionStorage.getItem(`LeagueMatch${i}`)) !== null){
-    //         if(JSON.parse(sessionStorage.getItem(`LeagueMatch${i}`)).data.leagueCode === props.leaguename){
-    //           setComMatch(JSON.parse(sessionStorage.getItem(`LeagueMatch${i}`)).data.leagueMatch);
-    //           break;
-    //         }
-    //     }
-    //   }
-    //   if(i === count) get_Competition_Match_API();
-    // }else{
-    //   get_Competition_Match_API();
-    // }
       setCount(count + 1);
       if(axiosData.length !== 0) {
          /* 최근경기 가장 까가운 날짜로 보이게 내림차순 하기 위함 */
@@ -84,6 +33,7 @@ function CompetitionMatch (props) {
         setComMatch(competitionList);
       }
     }, [props.leaguename, props.season, axiosData])
+
     return(
         <ComMatch>
             {Object.keys(comMatch).length !== 0 && (

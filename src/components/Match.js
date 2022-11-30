@@ -1,61 +1,15 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import styled from "styled-components";
 import useAxios from "../Hooks/UseAxios";
 
 function Match (props) {
-    const [matches, setMatches] = useState([]); // LeagueStandings.js 에서 Props로 받아온 데이터를 Url에 넣고 받아온 팀의 경기일정 API 저장 State
+    const [matches, setMatches] = useState([]);
 
-    const footballAPIKEY = "ce521915bf894d9c9877901ca93d0d47";
-
+    /* props.count-1 -> Modal 컴포넌트에서 count가 1증가된 상태로 넘어오기 때문
+       팀이름 클릭시 Modal컴포넌트에서 props로 받아온 id값을 포함해 커스텀훅으로 경기 일정 데이터 받아옴 */
     const [axiosData] = useAxios(`/teams/${props.id}/matches`, props.id, "TeamMatch", props.count-1);
 
-    /* 팀이름 클릭시 팀 id를 가져와 팀의 경기 일정 및 정보 api 요청 */
-    // const getMatchesAPI = async() => {
-    //     try {
-    //         const matchInfo = await axios ({
-    //             method: 'get',
-    //             headers: {
-                  
-
-    //               "Accept": "application/json",
-    //               "Content-Type": "application/json",
-    //               "X-Auth-Token": footballAPIKEY,
-    //             },
-    //             url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/teams/${props.id}/matches`,
-                
-    //           })
-    //           /* props로 받아온 id값과 응답받은 API 데이터 JSON 객체에 저장 */
-    //           let sessionData = {
-    //             data : { leagueId: props.id, teamMatch: matchInfo.data.matches }
-    //           };
-
-    //           console.log(matchInfo.data.matches,"모달 경기일정 정보");
-    //           setMatches(matchInfo.data.matches);
-
-    //           /* JSON 객체에 저장한 데이터 세션스토리지에 set 해주기 */
-    //           sessionStorage.setItem(`ModalMatch${props.count-1}`, JSON.stringify(sessionData));
-    //     }catch(e) {
-    //         alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");
-    //     }
-    // }
-
     useEffect(() => {
-      // let i = 0;
-      //   if(sessionStorage.length > 0){
-      //       for(i; i<props.count-1; i++){
-      //         if(JSON.parse(sessionStorage.getItem(`ModalMatch${i}`)) !== null){
-      //           if(JSON.parse(sessionStorage.getItem(`ModalMatch${i}`)).data.leagueId === props.id){
-      //             setMatches(JSON.parse(sessionStorage.getItem(`ModalMatch${i}`)).data.teamMatch);
-      //             break;
-      //           }
-      //       }
-      //     }
-      //     /* 위 조건과 아래 조건에 count-1이 들어간 이유는 Modal.js에서 보내주는 count props가 +1 증가 된 상태로 넘어오기 때문임 */
-      //     if(i === props.count-1) getMatchesAPI(); 
-      //   } else {
-      //       getMatchesAPI();
-      //   }
       if(axiosData.length !== 0) setMatches(axiosData.data.matches);
       }, [axiosData]);
 

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import styled from "styled-components";
 import Match from "./Match"
 import useAxios from "../Hooks/UseAxios";
