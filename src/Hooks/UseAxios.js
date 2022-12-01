@@ -12,7 +12,7 @@ const useAxios = (url, jsonCode, sessionName, sessionCount) => {
       /* 세션 스토리지안에 데이터가 있으면 아래 코드 진행 */
       if(sessionStorage.length > 0){
         for(i; i<sessionCount; i++){
-          /* 세션스토리지에서 key에 맞는 item이 있는지 확인  */
+          /* 세션스토리지에서 key값이 존재하는지 확인 */
           if(JSON.parse(sessionStorage.getItem(`${sessionName}${i}`)) !== null){
             /* 위 조건이 만족하면 세션스토리지에 저장된 Code 가 props로 받아온 Code와 맞는지 조건 확인 */
             if(JSON.parse(sessionStorage.getItem(`${sessionName}${i}`)).data.Code === jsonCode){
