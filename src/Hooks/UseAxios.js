@@ -5,11 +5,11 @@ const useAxios = (url, jsonCode, sessionName, sessionCount) => {
     const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    let sessionStorage = window.sessionStorage; // 세션스토리지 변수
+    const sessionStorage = window.sessionStorage; // 세션스토리지 변수
 
     useEffect(() => {
       let i = 0;
-
+      /* 세션 스토리지안에 데이터가 있으면 아래 코드 진행 */
       if(sessionStorage.length > 0){
         for(i; i<sessionCount; i++){
           /* 세션스토리지에서 key에 맞는 item이 있는지 확인  */

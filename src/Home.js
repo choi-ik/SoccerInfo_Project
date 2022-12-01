@@ -14,7 +14,7 @@ function Home() {
   const [leaguename, setLeagueName] = useState("PL"); // Props로 넘겨주기 위한 리그 코드값
   const [season, setSeason] = useState(2022); // 시즌 드롭다운 버튼 default = 2022 
 
-  const [axiosData,loading] = useAxios(`/areas`, null, "areas", 0 ); // useAxios 커스텀 훅에서 API 데이터와 loading 상태 받아옴
+  const [axiosData, loading] = useAxios(`/areas`, null, "areas", 0 ); // useAxios 커스텀 훅에서 API 데이터와 loading 상태 받아옴
 
   /* 하드코딩 했던 함수 부분  JSON 리팩토링*/
   const nationCode = {
@@ -24,17 +24,15 @@ function Home() {
            {leagueCode: "BL1", img: leagueimg[87], name: "분데스리가"},
            {leagueCode: "FL1", img: leagueimg[80], name: "리그 1"}] 
   };
-    /* 세션스토리지 정리를 위한 함수
-       첫 렌더링이되고 1분뒤 세션스토리지를 정리하고, 이후로 1분마다 스토리지를 정리함 */
-    // setTimeout(() => {
-    //   setInterval(() => {
-    //     window.sessionStorage.clear();
-    //     console.log("세션스토리지 정리");
-    //   }, 60000)
-    // }, 60000);
 
     useEffect(() => { 
       if(axiosData.length !== 0) setLeagueimg(axiosData.data.areas)
+      /* 세션스토리지 정리를 위한 함수
+       첫 렌더링이되고 1분뒤 세션스토리지를 정리하고, 이후로 1분마다 스토리지를 정리함 */
+        setInterval(() => {
+          window.sessionStorage.clear();
+          console.log("세션스토리지 정리");
+        }, 60000);
     }, [axiosData]);
 
   /* 드롭다운 함수 */

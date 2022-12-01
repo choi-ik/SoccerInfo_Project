@@ -12,65 +12,23 @@ function Modal (props) {
     
     const [count, setCount] = useState(0); // 세션 스토리지에 key를 다르게 저장하기 위해 만든 state
 
-    const [axiosData, loading] = useAxios(`/teams/${props.id}`, props.id, "Squad", count);
+    const [axiosData, isloading] = useAxios(`/teams/${props.id}`, props.id, "Squad", count);
+    
     /* X버튼 또는 Close버튼 클릭시 모달창 닫아줌과 동시에 로딩 false set */
     const closeModal = () => {
         setShowModal(false);
         //setLoading(false);
-    }
-    /* 팀 스쿼드 정보 가져오는 API */
-    // const getModalApi = async () => {
-    //     try {
-    //         const teamInfo = await axios({
-    //             method: 'get',
-    //             headers: {
-    //                 "Accept": "application/json",
-    //                 "Content-Type": "application/json",
-    //                 "X-Auth-Token": props.apiKey,
-    //             },
-    //             url: `https://soccerinfo-project-test.herokuapp.com/https://api.football-data.org/v4/teams/${props.id}`,
-    //         }) 
-
-    //         /* props로 받아온 id와 응답받은 API 데이터를 JSON 객체로 저장 */
-    //         let sessionData = {
-    //             data : { leagueId: props.id, teamSquad: teamInfo.data}
-    //         };
-
-    //         console.log(teamInfo.data, "모달창 팀 정보 API");
-    //         setTeamModal(teamInfo.data); // 가져온 데이터 set
-    //         setLoading(true); // API를 가져왔으니 로딩 true set
-
-    //         /* JSON 객체에 저장한 데이터 세션스토리지에 set 해주기 */
-    //         sessionStorage.setItem(`ModalSquad${count}`, JSON.stringify(sessionData));
-    //     }catch(e) {
-    //         alert(e+"\n"+"1분 뒤 다시 시도해 주십시오.");
-    //     }
-    // }
+    };
     
     useEffect(() => {
-        // let i = 0;
         /* 렌더링됨과 동시에 state에 props로 받아온 show(true) set */
         setShowModal(props.show); // 모달컴포넌트 렌더링됨과 동시에 모달 노출여부 true set
         
-        // if(sessionStorage.length > 0){
-        //     for(i; i<count; i++){
-        //       if(JSON.parse(sessionStorage.getItem(`ModalSquad${i}`)) !== null){
-        //         if(JSON.parse(sessionStorage.getItem(`ModalSquad${i}`)).data.leagueId === props.id){
-        //           setTeamModal(JSON.parse(sessionStorage.getItem(`ModalSquad${i}`)).data.teamSquad);
-        //           /* 위조건이 모두 만족하면 로딩 state true set */
-        //           setLoading(true);
-        //           break;
-        //         }
-        //     }
-        //   }
-        //   if(i === count) getModalApi(); 
-        // } else {
-        //     /* props로 넘어오는 id의 default값이 0임. id가 0인 팀은 내가 클릭한 팀이 아니기 때문에 조건문을 달아주었음. */
-        //     if(props.id !== 0) getModalApi();
-        // }
         /* 재렌더링시 count 값 1 증가 */
         setCount(count + 1); 
+        
         if(axiosData.length !== 0) setTeamModal(axiosData.data);
+        // if(isloading == true) setLoading(true);
         
         const clickOutSide = (event) => {
             // 현재 document에서 mousedown 이벤트가 동작하면 호출되는 함수.
@@ -90,7 +48,7 @@ function Modal (props) {
     return (
             <>
                 {showModal ? // showModal이 true이면 모달을 보여주고 false일땐 모달을 노출시키지 않음.
-                    loading ? // loading이 ture이면 모달을 내 API정보들을 보여주고, false일땐 API를 가져와 true가 될 때까지 loading 텍스트를 보여줌
+                    isloading ? // loading이 ture이면 모달을 내 API정보들을 보여주고, false일땐 API를 가져와 true가 될 때까지 loading 텍스트를 보여줌
                     <TeamModal ref={outLineRef}>
                         <ModalHeader>
                             <img src={teamModal.crest} width="40px"/>
