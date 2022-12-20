@@ -114,7 +114,7 @@ const TeamModal = styled.div`
     grid-gap: 10px;
     width: 75%;
     height: 75%;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     background-color: white;

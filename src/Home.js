@@ -65,9 +65,7 @@ function Home() {
                   {nationCode.data.map((e) => (
                     <li className="sidebarListItem">
                       <div className="bt1" 
-                           variant="outline-dark" 
-                           onMouseOver={(e) => e.target.style.background = "#C0C0C0"} 
-                           onMouseLeave={(e) => e.target.style.background = "#F5F5F5"} 
+                           variant="outline-dark"
                            onClick={() => setLeagueName(e.leagueCode)}>
                            <img src={e.img.flag} 
                                 width="40px" />
@@ -115,10 +113,15 @@ const CountryImage = styled.div`
     text-align: left;
     height: 40px;
     line-height: 40px;
+    &:hover { 
+      background-color: #C0C0C0;
+    }
   }
   .Navbar {
     grid-column-start: 1;
     grid-column-end: 4;
+    position: sticky;
+    top: 0;
   }
   .sidebar {
     background-color: #F5F5F5;
