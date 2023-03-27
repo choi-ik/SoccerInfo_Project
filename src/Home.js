@@ -8,6 +8,7 @@ import CompetitionMatch from "./components/CompetitionMatch";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import useAxios from "./Hooks/UseAxios";
+import Loading from "./Loading";
 
 function Home() {
   const [leagueimg, setLeagueimg] = useState([]); // 받아온 api 객체 배열의 flag(이미지주소 값)
@@ -95,7 +96,7 @@ function Home() {
         </CompetitionMatch>
       
       </CountryImage> 
-      : <h1>Loading...</h1> 
+      : <Loading/>
       }
     </>
   ); 
